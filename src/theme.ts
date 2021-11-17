@@ -1,4 +1,6 @@
 import { extendTheme, theme as chakraTheme } from "@chakra-ui/react";
+// Disable Chakra focus outline if not keyboard navigating
+import "focus-visible/dist/focus-visible";
 
 // Custom themes
 
@@ -13,10 +15,14 @@ const components = {
   Button: {
     baseStyle: {
       width: "100%",
+      borderRadius: "0.25em",
+      paddingY: "1.25em",
+    },
+    defaultProps: {
+      size: "sm",
     },
     variants: {
       solid: {
-        paddingY: "1.5em",
         color: "white",
         background: "gray.800",
         _hover: {
@@ -24,7 +30,6 @@ const components = {
         },
       },
       outline: {
-        paddingY: "1.5em",
         color: "gray.600",
         _hover: {
           background: "gray.800",
@@ -37,6 +42,7 @@ const components = {
     defaultProps: {
       focusBorderColor: "gray.800",
       errorBorderColor: "red.500",
+      size: "sm",
     },
   },
   NumberInput: {

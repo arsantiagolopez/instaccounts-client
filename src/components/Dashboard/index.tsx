@@ -3,11 +3,11 @@ import React from "react";
 
 interface Props {}
 
-const Layout: React.FC<Props> = () => {
+const Dashboard: React.FC<Props> = () => {
   return <Flex {...styles.wrapper}></Flex>;
 };
 
-export { Layout };
+export { Dashboard };
 
 // Styles
 
