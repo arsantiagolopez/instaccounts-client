@@ -2,18 +2,33 @@
   "name": "instaccounts",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 7000",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "clean": "rm -rf node_modules .next yarn.lock && yarn",
+    "test": "jest"
   },
   "dependencies": {
+    "@chakra-ui/react": "^1.7.1",
+    "@emotion/react": "^11",
+    "@emotion/styled": "^11",
+    "add": "^2.0.6",
+    "axios": "^0.24.0",
+    "framer-motion": "^4",
+    "mongodb": "^4.1.4",
     "next": "12.0.4",
+    "next-auth": "^4.0.0-beta.7",
+    "nodemailer": "^6.7.1",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "swr": "^1.0.1",
+    "yarn": "^1.22.17"
   },
   "devDependencies": {
-    "@types/node": "16.11.7",
+    "@types/mongoose": "^5.11.97",
+    "@types/node": "^16.11.7",
+    "@types/nodemailer": "^6.4.4",
     "@types/react": "17.0.35",
     "eslint": "7",
     "eslint-config-next": "12.0.4",
