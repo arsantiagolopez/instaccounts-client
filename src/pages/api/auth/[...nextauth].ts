@@ -1,7 +1,9 @@
+import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import { NextApiRequest, NextApiResponse } from "next";
-import NextAuth, { NextAuthOptions } from "next-auth";
+import NextAuth from "next-auth";
 import EmailProvider from "next-auth/providers/email";
 import GoogleProvider from "next-auth/providers/google";
+import clientPromise from "../../../utils/mongodb";
 
 interface ServerAndFrom {
   server: string | undefined;
@@ -27,10 +29,7 @@ const { server, from }: ServerAndFrom = {
         process.env.TEST_EMAIL_FROM,
 };
 
-export default async function auth(
-  req: NextApiRequest & NextAuthOptions,
-  res: NextApiResponse<any>
-) {
+export default async function auth(req: NextApiRequest, res: NextApiResponse) {
   return await NextAuth(req, res, {
     // Configure one or more authentication providers
     providers: [
@@ -56,6 +55,9 @@ export default async function auth(
         },
       }),
     ],
+    adapter: MongoDBAdapter({
+      db: (await clientPromise).db("main"),
+    }),
     secret: process.env.SECRET,
     session: {
       // Seconds - How long until an idle session expires and is no longer valid.

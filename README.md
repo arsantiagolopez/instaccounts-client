@@ -2,7 +2,7 @@
 
 ## Instagram Accounts Manager
 
-Learning objectives for project:
+Learning objectives for the project:
 
 - Learn TypeScript.
 - Unit testing with jest.
