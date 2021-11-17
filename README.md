@@ -1,3 +1,5 @@
+![alt text](./web/public/images/logo.png?raw=true "Instaccounts")
+
 ### Instaccounts
 
 ## Instagram Accounts Manager
