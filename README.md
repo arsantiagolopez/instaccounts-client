@@ -1,4 +1,4 @@
-![alt text](./web/public/images/logo.png?raw=true "Instaccounts")
+![alt text](./public/images/logo.png?raw=true "Instaccounts")
 
 ### Instaccounts
 
