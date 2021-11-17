@@ -14,7 +14,6 @@
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
     "@next-auth/mongodb-adapter": "^0.0.2-next.285",
-    "add": "^2.0.6",
     "axios": "^0.24.0",
     "framer-motion": "^4",
     "mongodb": "^4.1.4",
