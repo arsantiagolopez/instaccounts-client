@@ -6,11 +6,16 @@ import { BiAt } from "react-icons/bi";
 import { BsHouseDoor, BsHouseDoorFill } from "react-icons/bs";
 import { IoAt } from "react-icons/io5";
 import { Logo } from "../Logo";
+import { ProfileAvatar } from "../ProfileAvatar";
 
-interface Props {}
+interface Props {
+  user: object | undefined;
+}
 
-const Navigation: React.FC<Props> = () => {
+const Navigation: React.FC<Props> = ({ user }) => {
   const { pathname } = useRouter();
+
+  const profileAvatarProps = { user };
 
   return (
     <Flex {...styles.wrapper}>
@@ -33,6 +38,7 @@ const Navigation: React.FC<Props> = () => {
             {...styles.icon}
           />
         </Link>
+        <ProfileAvatar {...profileAvatarProps} />
       </Flex>
     </Flex>
   );
@@ -62,7 +68,7 @@ const styles: any = {
     direction: "row",
   },
   icon: {
-    fontSize: "14pt",
+    fontSize: "16pt",
     color: "gray.700",
     background: "transparent",
     marginLeft: "0.5em",

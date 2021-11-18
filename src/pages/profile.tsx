@@ -1,12 +1,12 @@
 import { useSession } from "next-auth/react";
 import Head from "next/head";
 import React from "react";
-import { Accounts } from "../components/Accounts";
 import { Layout } from "../components/Layout";
+import { Profile } from "../components/Profile";
 
 interface Props {}
 
-const AccountsPage: React.FC<Props> = () => {
+const ProfilePage: React.FC<Props> = () => {
   const { data } = useSession();
   const { user } = data || {};
 
@@ -19,14 +19,14 @@ const AccountsPage: React.FC<Props> = () => {
   return (
     <>
       <Head>
-        <title>Instaccounts - Select Account</title>
+        <title>Instaccounts - {}'s Profile</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout {...layoutProps}>
-        <Accounts />
+        <Profile />
       </Layout>
     </>
   );
 };
 
-export default AccountsPage;
+export default ProfilePage;

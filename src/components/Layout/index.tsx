@@ -4,12 +4,14 @@ import { Navigation } from "../Navigation";
 
 interface Props {
   children: JSX.Element;
+  user: object | undefined;
 }
 
-const Layout: React.FC<Props> = ({ children }) => {
+const Layout: React.FC<Props> = ({ children, user }) => {
+  const navigationProps = { user };
   return (
     <Flex {...styles.wrapper}>
-      <Navigation />
+      <Navigation {...navigationProps} />
       <Flex {...styles.content}>{children}</Flex>
     </Flex>
   );

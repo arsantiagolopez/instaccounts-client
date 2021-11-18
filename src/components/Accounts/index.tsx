@@ -91,8 +91,9 @@ export { Accounts };
 const styles: any = {
   wrapper: {
     direction: "column",
-    paddingX: { base: "1em", md: "22vw" },
+    paddingX: { base: "0", md: "22vw" },
     minHeight: "calc(100vh - 3em)",
+    paddingY: "3vh",
   },
   button: {
     display: "flex",
@@ -100,7 +101,7 @@ const styles: any = {
     justifyContent: "flex-start",
     height: { base: "10vh", md: "13vh" },
     background: "transparent",
-    paddingX: { base: "1em", md: "2vw" },
+    paddingX: { base: "2em", md: "2vw" },
     _hover: {
       background: "gray.100",
     },
