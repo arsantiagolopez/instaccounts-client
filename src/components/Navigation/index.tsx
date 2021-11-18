@@ -2,8 +2,9 @@ import { Box, Flex, IconButton } from "@chakra-ui/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
+import { BiAt } from "react-icons/bi";
 import { BsHouseDoor, BsHouseDoorFill } from "react-icons/bs";
-import { IoAt, IoAtCircle } from "react-icons/io5";
+import { IoAt } from "react-icons/io5";
 import { Logo } from "../Logo";
 
 interface Props {}
@@ -28,7 +29,7 @@ const Navigation: React.FC<Props> = () => {
         <Link href="/accounts">
           <IconButton
             aria-label="Accounts"
-            icon={pathname.includes("/accounts") ? <IoAtCircle /> : <IoAt />}
+            icon={pathname.includes("/accounts") ? <BiAt /> : <IoAt />}
             {...styles.icon}
           />
         </Link>
