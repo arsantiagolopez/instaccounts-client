@@ -30,10 +30,10 @@ export { Insights };
 
 const styles: any = {
   wrapper: {
-    flex: 3.5,
     direction: "column",
     paddingY: "4vh",
-    maxWidth: "35%",
+    height: "fit-content",
+    width: "100%",
   },
   profile: {
     direction: "row",

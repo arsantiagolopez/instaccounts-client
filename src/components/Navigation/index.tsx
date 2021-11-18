@@ -50,6 +50,9 @@ export { Navigation };
 
 const styles: any = {
   wrapper: {
+    zIndex: 998,
+    position: "sticky",
+    top: "0",
     direction: "row",
     align: "center",
     justify: "space-between",
@@ -58,6 +61,7 @@ const styles: any = {
     borderBottom: "1px solid",
     borderBottomColor: "gray.200",
     paddingX: { base: "1em", md: "22vw" },
+    background: "white",
   },
   logoWrapper: {
     position: "relative",

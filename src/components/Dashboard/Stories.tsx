@@ -66,7 +66,6 @@ export { Stories };
 
 const styles: any = {
   wrapper: {
-    flex: 6.5,
     direction: "row",
     align: "center",
     justify: "flex-start",
@@ -76,6 +75,8 @@ const styles: any = {
     borderRadius: "0.25em",
     boxShadow: "xs",
     marginY: "4vh",
+    height: "fit-content",
+    background: "white",
   },
   account: {
     direction: "column",

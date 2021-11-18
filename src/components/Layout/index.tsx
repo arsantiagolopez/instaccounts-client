@@ -26,6 +26,7 @@ const styles: any = {
     direction: "column",
   },
   content: {
+    position: "relative",
     direction: "column",
     background: "rgba(250,250,250,0.5)",
   },
