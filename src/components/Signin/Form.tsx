@@ -88,13 +88,14 @@ const styles: any = {
   },
   separation: {
     direction: "row",
-    paddingY: "2vh",
+    paddingY: "3vh",
     align: "center",
     width: "100%",
   },
   or: {
     color: "gray.400",
     fontWeight: "normal",
+    fontSize: "10pt",
     size: "sm",
     marginX: { base: "1em", md: "1vw" },
   },

@@ -1,16 +1,20 @@
-import { Flex } from "@chakra-ui/react";
 import React from "react";
+import { Layout } from "../Layout";
 
 interface Props {}
 
 const Dashboard: React.FC<Props> = () => {
-  return <Flex {...styles.wrapper}></Flex>;
+  return (
+    <Layout>
+      <div>Howdy</div>
+    </Layout>
+  );
 };
 
 export { Dashboard };
 
 // Styles
 
-const styles = {
+const styles: any = {
   wrapper: {},
 };

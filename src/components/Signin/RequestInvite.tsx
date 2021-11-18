@@ -1,24 +1,12 @@
-import { ChevronUpIcon } from "@chakra-ui/icons";
-import {
-  Button,
-  Drawer,
-  DrawerBody,
-  DrawerContent,
-  DrawerHeader,
-  DrawerOverlay,
-  Flex,
-  Input,
-  Text,
-  useDisclosure,
-} from "@chakra-ui/react";
+import { ChevronDownIcon } from "@chakra-ui/icons";
+import { Flex, Input, Text } from "@chakra-ui/react";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { SlideInBottomDrawer } from "../SlideInBottomDrawer";
 
 interface Props {}
 
 const RequestInvite: React.FC<Props> = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-
   interface FormData {
     name: string;
     email: string;
@@ -65,56 +53,44 @@ const RequestInvite: React.FC<Props> = () => {
   });
 
   return (
-    <>
-      <Button onClick={onOpen} rightIcon={<ChevronUpIcon />} {...styles.button}>
-        Request an invite
-      </Button>
-      <Drawer onClose={onClose} isOpen={isOpen} {...styles.drawer}>
-        <DrawerOverlay />
-
-        <DrawerContent {...styles.content}>
-          <DrawerHeader>Request an invite</DrawerHeader>
-          <form>
-            <DrawerBody>
-              <Flex {...styles.field}>
-                <Input
-                  placeholder="Your name"
-                  {...styles.input}
-                  {...nameRegister}
-                />
-                {errors.name && (
-                  <Text {...styles.error}>{errors.name.message}</Text>
-                )}
-              </Flex>
-              <Flex {...styles.field}>
-                <Input
-                  placeholder="Your email"
-                  {...styles.input}
-                  {...emailRegister}
-                />
-                {errors.email && (
-                  <Text {...styles.error}>{errors.email.message}</Text>
-                )}
-              </Flex>
-              <Flex {...styles.field}>
-                <Input
-                  placeholder="User whose account you want to manage"
-                  {...styles.input}
-                  {...accountRegister}
-                />
-                {errors.account && (
-                  <Text {...styles.error}>{errors.account.message}</Text>
-                )}
-              </Flex>
-            </DrawerBody>
-          </form>
-
-          <Button onClick={handleSubmit(onSubmit)} {...styles.request}>
-            Send request
-          </Button>
-        </DrawerContent>
-      </Drawer>
-    </>
+    <SlideInBottomDrawer
+      trigger={
+        <Text {...styles.trigger}>
+          Request an invite
+          <ChevronDownIcon />
+        </Text>
+      }
+      header="Request an invite ✉️"
+      callbackFunction={handleSubmit(onSubmit)}
+      submit={<Text>Send request</Text>}
+    >
+      <form>
+        <Flex {...styles.field}>
+          <Input placeholder="Your name" {...styles.input} {...nameRegister} />
+          {errors.name && <Text {...styles.error}>{errors.name.message}</Text>}
+        </Flex>
+        <Flex {...styles.field}>
+          <Input
+            placeholder="Your email"
+            {...styles.input}
+            {...emailRegister}
+          />
+          {errors.email && (
+            <Text {...styles.error}>{errors.email.message}</Text>
+          )}
+        </Flex>
+        <Flex {...styles.field}>
+          <Input
+            placeholder="Account you want to manage"
+            {...styles.input}
+            {...accountRegister}
+          />
+          {errors.account && (
+            <Text {...styles.error}>{errors.account.message}</Text>
+          )}
+        </Flex>
+      </form>
+    </SlideInBottomDrawer>
   );
 };
 
@@ -123,21 +99,10 @@ export { RequestInvite };
 // Styles
 
 const styles: any = {
-  drawer: {
-    placement: "bottom",
-  },
-  button: {
-    variant: "unstyled",
+  trigger: {
     fontSize: "10pt",
     marginTop: "2vh",
     fontWeight: "normal",
-  },
-  content: {
-    borderRadius: "0.25em",
-    width: { base: "90vw", md: "30vw" },
-    marginX: "auto",
-    marginBottom: "10vh",
-    minHeight: { base: "35vh", md: "30vh" },
   },
   input: {},
   field: {
@@ -149,19 +114,5 @@ const styles: any = {
     color: "red.500",
     paddingTop: "0.75vh",
     lineHeight: "1.25em",
-  },
-  request: {
-    position: "absolute",
-    bottom: "-7vh",
-    marginTop: "2vh",
-    background: "white",
-    color: "gray.800",
-    paddingY: "1.5em",
-    _hover: {
-      background: "gray.100",
-    },
-    _active: {
-      background: "gray.100",
-    },
   },
 };

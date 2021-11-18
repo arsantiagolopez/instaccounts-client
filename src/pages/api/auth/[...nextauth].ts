@@ -37,7 +37,6 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
       EmailProvider({
         server,
         from,
-        sendVerificationRequest: async () => {},
       }),
       // Google one-click login
       GoogleProvider({
