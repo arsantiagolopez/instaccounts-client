@@ -1,6 +1,7 @@
 import { Avatar, Button, Flex, Icon } from "@chakra-ui/react";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { useRef, useState } from "react";
 import { IoPersonCircleOutline, IoSettingsSharp } from "react-icons/io5";
 
@@ -10,6 +11,9 @@ interface Props {
 
 const ProfileAvatar: React.FC<Props> = ({ user }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const { pathname } = useRouter();
+  const isProfile = pathname === "/profile";
 
   const panelRef: any = useRef(null);
 
@@ -30,7 +34,12 @@ const ProfileAvatar: React.FC<Props> = ({ user }) => {
         onBlur={handleBlur}
         tabIndex="1"
       >
-        <Avatar src="" {...styles.avatar} />
+        <Avatar
+          src=""
+          boxShadow={(isProfile || isOpen) && "0 0 0 1px black"}
+          border={(isProfile || isOpen) && "2px solid white"}
+          {...styles.avatar}
+        />
       </Flex>
 
       <Flex
@@ -94,8 +103,8 @@ const styles: any = {
   },
   avatar: {
     cursor: "pointer",
-    width: "18pt",
-    height: "18pt",
+    width: "17pt",
+    height: "17pt",
   },
   link: {
     fontSize: "10pt",

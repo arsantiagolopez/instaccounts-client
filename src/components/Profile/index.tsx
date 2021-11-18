@@ -1,6 +1,7 @@
 import { Divider, Flex } from "@chakra-ui/react";
 import React from "react";
 import { Feed } from "../Feed";
+import { ProfileActions } from "../ProfileActions";
 import { ProfileInfo } from "../ProfileInfo";
 
 interface Props {}
@@ -9,6 +10,7 @@ const Profile: React.FC<Props> = () => {
   return (
     <Flex {...styles.wrapper}>
       <ProfileInfo />
+      <ProfileActions />
       <Divider {...styles.divider} />
       <Feed />
     </Flex>
@@ -25,6 +27,6 @@ const styles: any = {
     paddingX: { base: "0", md: "22vw" },
   },
   divider: {
-    marginY: "5vh",
+    marginY: { base: "3vh", md: "5vh" },
   },
 };

@@ -2,6 +2,7 @@ import { useSession } from "next-auth/react";
 import Head from "next/head";
 import React from "react";
 import { Dashboard } from "../components/Dashboard";
+import { Layout } from "../components/Layout";
 import { LoadingScreen } from "../components/LoadingScreen";
 import { Signin } from "../components/Signin";
 
@@ -15,11 +16,21 @@ const IndexPage: React.FC<Props> = () => {
   let title: string | undefined;
   let content: JSX.Element | undefined;
 
+  interface User {
+    user: object | undefined;
+  }
+
+  const layoutProps: User = { user };
+
   if (!user) {
     title = "- Sign in";
     content = <Signin />;
   } else {
-    content = <Dashboard />;
+    content = (
+      <Layout {...layoutProps}>
+        <Dashboard />
+      </Layout>
+    );
   }
 
   if (loading) {

@@ -68,12 +68,13 @@ const styles: any = {
     direction: "row",
   },
   icon: {
-    fontSize: "16pt",
+    fontSize: "18pt",
     color: "gray.700",
     background: "transparent",
     marginLeft: "0.5em",
     _hover: {
       color: "black",
     },
+    _active: {},
   },
 };

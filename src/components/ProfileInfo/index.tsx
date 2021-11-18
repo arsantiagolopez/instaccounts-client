@@ -4,11 +4,14 @@ import React from "react";
 interface Props {}
 
 const ProfileInfo: React.FC<Props> = () => {
-  const { image, username, name, bio }: any = {
+  const { image, username, name, bio, posts, followers, following }: any = {
     image: "https://avatars.githubusercontent.com/u/53582710?v=4",
     username: "flightsfromsanantonio",
     name: "Alexander Santiago",
     bio: "📍Midtown, TX\n\nSoftware Developer\n\n@lifeingodmode",
+    posts: "231",
+    followers: "5781",
+    following: "1780",
   };
 
   return (
@@ -17,16 +20,27 @@ const ProfileInfo: React.FC<Props> = () => {
         <Avatar src={image} name={name} {...styles.avatar} />
         <Flex {...styles.info}>
           <Text {...styles.username}>{username}</Text>
+          <Flex {...styles.insights}>
+            <Text {...styles.text} marginRight="1.5vw">
+              <b>{posts}</b> posts
+            </Text>
+            <Text {...styles.text} marginRight="1.5vw">
+              <b>{followers}</b> followers
+            </Text>
+            <Text {...styles.text} marginRight="1.5vw">
+              <b>{following}</b> following
+            </Text>
+          </Flex>
           <Flex {...styles.meta} {...styles.desktopOnly}>
             <Text {...styles.name}>{name}</Text>
-            <Text {...styles.bio}>{bio}</Text>
+            <Text {...styles.text}>{bio}</Text>
           </Flex>
         </Flex>
       </Flex>
 
       <Flex {...styles.meta}>
         <Text {...styles.name}>{name}</Text>
-        <Text {...styles.bio}>{bio}</Text>
+        <Text {...styles.text}>{bio}</Text>
       </Flex>
     </Flex>
   );
@@ -53,23 +67,27 @@ const styles: any = {
     direction: "column",
     justify: "flex-start",
     align: "flex-start",
-    height: { base: "auto", md: "30vh" },
+    minHeight: { base: "auto", md: "30vh" },
     paddingY: { base: "1em", md: "5vh" },
     overflow: "hidden",
   },
   username: {
     fontWeight: "normal",
     fontSize: { base: "22pt", md: "26pt" },
+    letterSpacing: "tight",
     overflow: "hidden",
     whiteSpace: "nowrap",
     display: "block",
     textOverflow: "ellipsis",
     width: { base: "90%", md: "100%" },
   },
+  insights: {
+    direction: "row",
+    paddingY: { base: "0", md: "2vh" },
+  },
   meta: {
     display: { base: "flex", md: "none" },
     direction: "column",
-    paddingTop: { base: "0", md: "3vh" },
     paddingBottom: "1vh",
     paddingX: { base: "1em", md: "0" },
     minHeight: "10vh",
@@ -79,7 +97,7 @@ const styles: any = {
     fontSize: { base: "12pt", md: "14pt" },
     paddingBottom: "1vh",
   },
-  bio: {
+  text: {
     fontSize: { base: "10pt", md: "12pt" },
   },
   desktopOnly: {

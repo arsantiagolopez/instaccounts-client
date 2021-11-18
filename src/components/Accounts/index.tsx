@@ -18,7 +18,7 @@ const Accounts: React.FC<Props> = () => {
   interface Account {
     id: string;
     image: string;
-    handle: string;
+    username: string;
     meta: string | null;
   }
   const accounts: Account[] = [
@@ -26,49 +26,49 @@ const Accounts: React.FC<Props> = () => {
       id: "1234",
       image:
         "https://images.pexels.com/photos/5140629/pexels-photo-5140629.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
-      handle: "@flightsfromboston",
+      username: "@flightsfromboston",
       meta: "3 to confirm",
     },
     {
       id: "5678",
       image:
         "https://images.pexels.com/photos/4449872/pexels-photo-4449872.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
-      handle: "@flightsfromsandiego",
+      username: "@flightsfromsandiego",
       meta: "1 to confirm",
     },
     {
       id: "91011",
       image:
         "https://images.pexels.com/photos/5740937/pexels-photo-5740937.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
-      handle: "@flightsfromsanantonio",
+      username: "@flightsfromsanantonio",
       meta: "7 to confirm, 2 recently posted",
     },
     {
       id: "121314",
       image:
         "https://images.pexels.com/photos/9314119/pexels-photo-9314119.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
-      handle: "@flightsfromnewyork",
+      username: "@flightsfromnewyork",
       meta: "2 to post",
     },
     {
       id: "151617",
       image:
         "https://images.pexels.com/photos/2263683/pexels-photo-2263683.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
-      handle: "@flightsfromla",
+      username: "@flightsfromla",
       meta: "3 to confirm",
     },
   ];
 
   return (
     <Flex {...styles.wrapper}>
-      {accounts?.map(({ id, image, handle, meta }) => (
+      {accounts?.map(({ id, image, username, meta }) => (
         <Button key={id} onClick={() => setIsSelected(id)} {...styles.button}>
           <AspectRatio {...styles.aspect}>
-            <Avatar src={image} name={handle} {...styles.image} />
+            <Avatar src={image} name={username} {...styles.image} />
           </AspectRatio>
           <Flex {...styles.account}>
             <Flex {...styles.info}>
-              <Text {...styles.handle}>{handle}</Text>
+              <Text {...styles.username}>{username}</Text>
               <Text {...styles.meta}>
                 <Circle {...styles.circle} />
                 {meta}
@@ -129,7 +129,7 @@ const styles: any = {
     direction: "column",
     color: "gray.800",
   },
-  handle: {
+  username: {
     textAlign: "left",
     fontWeight: "bold",
   },
