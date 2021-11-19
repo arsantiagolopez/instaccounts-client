@@ -3,16 +3,16 @@ import React from "react";
 import { AccountDocument } from "../../utils/types";
 
 interface Props {
-  activeAccount: AccountDocument | undefined;
+  active: AccountDocument | null;
 }
 
-const Insights: React.FC<Props> = ({ activeAccount }) => {
-  const { image, username, name, isAuthorized } = activeAccount || {};
+const Insights: React.FC<Props> = ({ active }) => {
+  const { image, username, name, isAuthorized } = active || {};
 
   return (
     <Flex {...styles.wrapper}>
       <Flex {...styles.profile}>
-        <Avatar src={image} {...styles.avatar} />
+        <Avatar src={image} name={name} {...styles.avatar} />
         <Flex {...styles.meta}>
           <Text {...styles.username}>{username}</Text>
           <Text {...styles.name}>{name}</Text>

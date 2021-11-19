@@ -6,11 +6,11 @@ import { WaitingAuthorizationScreen } from "../../Screens/WaitingAuthorizationSc
 
 interface Props {
   accounts: AccountDocument[] | undefined;
-  activeAccount: AccountDocument | undefined;
+  active: AccountDocument | null;
 }
 
-const Feed: React.FC<Props> = ({ accounts, activeAccount }) => {
-  const { isAuthorized } = activeAccount || {};
+const Feed: React.FC<Props> = ({ accounts, active }) => {
+  const { isAuthorized } = active || {};
 
   return (
     <Flex {...styles.wrapper}>

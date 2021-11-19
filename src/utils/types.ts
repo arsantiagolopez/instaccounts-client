@@ -13,4 +13,5 @@ export interface AccountDocument extends Document {
 export interface UserDocument extends Document {
   email: string;
   emailVerified?: Date;
+  isAdmin?: boolean;
 }

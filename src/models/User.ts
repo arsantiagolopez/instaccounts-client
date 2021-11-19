@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
-import { User as UserType } from "../utils/types";
+import { UserDocument } from "../utils/types";
 
 const { model, models, Schema } = mongoose;
 
-const UserSchema = new Schema<UserType>(
+const UserSchema = new Schema<UserDocument>(
   {
     email: {
       type: String,
@@ -14,10 +14,13 @@ const UserSchema = new Schema<UserType>(
     emailVerified: {
       type: Date,
     },
+    isAdmin: {
+      type: Boolean,
+    },
   },
   { timestamps: true }
 );
 
-const User = models.User || model<UserType>("User", UserSchema, "users");
+const User = models.User || model<UserDocument>("User", UserSchema, "users");
 
 export { User };

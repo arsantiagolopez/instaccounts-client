@@ -1,7 +1,6 @@
 import { Flex } from "@chakra-ui/react";
 import React from "react";
-import useSWR, { SWRResponse } from "swr";
-import { AccountDocument } from "../../utils/types";
+import { useAccounts } from "../../utils/useAccounts";
 import { Feed } from "./Feed";
 import { Insights } from "./Insights";
 import { Stories } from "./Stories";
@@ -9,14 +8,11 @@ import { Stories } from "./Stories";
 interface Props {}
 
 const Dashboard: React.FC<Props> = () => {
-  const { data: accounts, mutate }: SWRResponse<AccountDocument[], Error> =
-    useSWR("/api/accounts");
+  const { accounts, active, mutate } = useAccounts();
 
-  const activeAccount = accounts?.find(({ isActive }) => isActive);
-
-  const storiesProps = { accounts, mutate, activeAccount };
-  const feedProps = { accounts, activeAccount };
-  const insightsProps = { activeAccount };
+  const storiesProps = { accounts, active, mutate };
+  const feedProps = { accounts, active };
+  const insightsProps = { active };
 
   return (
     <Flex {...styles.wrapper}>

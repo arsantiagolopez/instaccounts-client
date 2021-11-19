@@ -9,9 +9,8 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { IoAddSharp, IoCheckmarkCircleSharp } from "react-icons/io5";
-import useSWR, { SWRResponse } from "swr";
 import axios from "../../axios";
-import { AccountDocument } from "../../utils/types";
+import { useAccounts } from "../../utils/useAccounts";
 import { AddAccountDrawer } from "../AddAccountDrawer";
 import { NoAccountsScreen } from "../Screens";
 
@@ -19,8 +18,7 @@ interface Props {}
 
 const Accounts: React.FC<Props> = () => {
   const [activeId, setActiveId] = useState<string | null>(null);
-  const { data: accounts, mutate }: SWRResponse<AccountDocument[], Error> =
-    useSWR("/api/accounts");
+  const { accounts, active, mutate } = useAccounts();
 
   // Update selected account's lastActive field to newest date
   const handleSelect = async (id: string): Promise<void> => {
@@ -28,18 +26,10 @@ const Accounts: React.FC<Props> = () => {
     setActiveId(data?._id);
   };
 
-  // Set initial activeId to the last active item
-  useEffect(() => {
-    if (accounts) {
-      const sorted = [...accounts].sort(
-        (a, b) =>
-          new Date(b.lastActive).getTime() - new Date(a.lastActive).getTime()
-      );
-      setActiveId(sorted[0]._id);
-    }
-  }, [accounts]);
+  useEffect(() => setActiveId(active?._id), [active]);
 
   const addAccountDrawerProps = { accounts, mutate };
+
   return (
     <Flex {...styles.wrapper}>
       {accounts?.length ? (
@@ -47,7 +37,6 @@ const Accounts: React.FC<Props> = () => {
           {accounts.map(({ _id, image, username }) => (
             <Button
               key={_id}
-              // onClick={() => setIsSelected(_id)}
               onClick={() => handleSelect(_id)}
               {...styles.button}
             >
