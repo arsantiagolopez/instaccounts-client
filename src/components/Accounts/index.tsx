@@ -8,78 +8,84 @@ import {
   Text,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
-import { IoCheckmarkCircleSharp } from "react-icons/io5";
+import { IoAddSharp, IoCheckmarkCircleSharp } from "react-icons/io5";
+import useSWR, { SWRResponse } from "swr";
+import axios from "../../axios";
+import { AccountDocument } from "../../utils/types";
+import { AddAccountDrawer } from "../AddAccountDrawer";
+import { NoAccountsScreen } from "../Screens";
 
 interface Props {}
 
 const Accounts: React.FC<Props> = () => {
-  const [isSelected, setIsSelected] = useState<string | null>(null);
+  const [activeId, setActiveId] = useState<string | null>(null);
+  const { data: accounts, mutate }: SWRResponse<AccountDocument[], Error> =
+    useSWR("/api/accounts");
 
-  interface Account {
-    id: string;
-    image: string;
-    username: string;
-    meta: string | null;
-  }
-  const accounts: Account[] = [
-    {
-      id: "1234",
-      image:
-        "https://images.pexels.com/photos/5140629/pexels-photo-5140629.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
-      username: "@flightsfromboston",
-      meta: "3 to confirm",
-    },
-    {
-      id: "5678",
-      image:
-        "https://images.pexels.com/photos/4449872/pexels-photo-4449872.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
-      username: "@flightsfromsandiego",
-      meta: "1 to confirm",
-    },
-    {
-      id: "91011",
-      image:
-        "https://images.pexels.com/photos/5740937/pexels-photo-5740937.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
-      username: "@flightsfromsanantonio",
-      meta: "7 to confirm, 2 recently posted",
-    },
-    {
-      id: "121314",
-      image:
-        "https://images.pexels.com/photos/9314119/pexels-photo-9314119.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
-      username: "@flightsfromnewyork",
-      meta: "2 to post",
-    },
-    {
-      id: "151617",
-      image:
-        "https://images.pexels.com/photos/2263683/pexels-photo-2263683.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
-      username: "@flightsfromla",
-      meta: "3 to confirm",
-    },
-  ];
+  // Update selected account's lastActive field to newest date
+  const handleSelect = async (id: string) => {
+    const response = await axios.put(`/api/accounts/active/${id}`);
+    console.log("response", response);
+    // mutate([...[accounts], data]);
+    // setActiveId(data?._id);
+  };
+
+  const addAccountDrawerProps = { accounts, mutate };
 
   return (
     <Flex {...styles.wrapper}>
-      {accounts?.map(({ id, image, username, meta }) => (
-        <Button key={id} onClick={() => setIsSelected(id)} {...styles.button}>
-          <AspectRatio {...styles.aspect}>
-            <Avatar src={image} name={username} {...styles.image} />
-          </AspectRatio>
-          <Flex {...styles.account}>
-            <Flex {...styles.info}>
-              <Text {...styles.username}>{username}</Text>
-              <Text {...styles.meta}>
-                <Circle {...styles.circle} />
-                {meta}
-              </Text>
+      {accounts?.length ? (
+        <>
+          {accounts.map(({ _id, image, username }) => (
+            <Button
+              key={_id}
+              // onClick={() => setIsSelected(_id)}
+              onClick={() => handleSelect(_id)}
+              {...styles.button}
+            >
+              <AspectRatio {...styles.aspect}>
+                <Avatar src={image} name={username} {...styles.image} />
+              </AspectRatio>
+              <Flex {...styles.account}>
+                <Flex {...styles.info}>
+                  <Text {...styles.username}>{username}</Text>
+                  {/* <Text {...styles.meta}>
+                  <Circle {...styles.circle} />
+                  {meta}
+                </Text> */}
+                </Flex>
+                {activeId === _id && (
+                  <Icon as={IoCheckmarkCircleSharp} {...styles.icon} />
+                )}
+              </Flex>
+            </Button>
+          ))}
+          <AddAccountDrawer {...addAccountDrawerProps}>
+            <Flex {...styles.button}>
+              <Circle {...styles.aspect}>
+                <Icon as={IoAddSharp} {...styles.add} />
+              </Circle>
+              <Flex {...styles.account}>
+                <Text {...styles.username}>Add account</Text>
+              </Flex>
             </Flex>
-            {isSelected === id && (
-              <Icon as={IoCheckmarkCircleSharp} {...styles.icon} />
-            )}
+          </AddAccountDrawer>
+        </>
+      ) : (
+        <>
+          <AddAccountDrawer {...addAccountDrawerProps}>
+            <Flex {...styles.button}>
+              <Icon as={IoAddSharp} {...styles.add} />
+              <Flex {...styles.account}>
+                <Text {...styles.username}>Add account</Text>
+              </Flex>
+            </Flex>
+          </AddAccountDrawer>
+          <Flex marginY="15vh">
+            <NoAccountsScreen />
           </Flex>
-        </Button>
-      ))}
+        </>
+      )}
     </Flex>
   );
 };
@@ -93,12 +99,12 @@ const styles: any = {
     direction: "column",
     paddingX: { base: "0", md: "22vw" },
     minHeight: "calc(100vh - 3em)",
-    paddingY: "3vh",
   },
   button: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "flex-start",
+    align: "center",
     height: { base: "10vh", md: "13vh" },
     background: "transparent",
     paddingX: { base: "2em", md: "2vw" },
@@ -114,7 +120,6 @@ const styles: any = {
   image: {
     width: "100%",
     height: "100%",
-    background: "gray.100",
     cursor: "pointer",
   },
   account: {
@@ -132,6 +137,7 @@ const styles: any = {
   username: {
     textAlign: "left",
     fontWeight: "bold",
+    color: "gray.700",
   },
   meta: {
     display: "flex",
@@ -147,5 +153,9 @@ const styles: any = {
   icon: {
     color: "green.400",
     fontSize: "18pt",
+  },
+  add: {
+    color: "gray.700",
+    fontSize: "22pt",
   },
 };

@@ -1,6 +1,6 @@
 import { signIn, useSession } from "next-auth/react";
 import React, { useEffect } from "react";
-import { LoadingScreen } from "../LoadingScreen";
+import { LoadingScreen } from "../Screens";
 
 interface Props {
   children: any;

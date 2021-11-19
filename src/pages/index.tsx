@@ -3,7 +3,7 @@ import Head from "next/head";
 import React from "react";
 import { Dashboard } from "../components/Dashboard";
 import { Layout } from "../components/Layout";
-import { LoadingScreen } from "../components/LoadingScreen";
+import { LoadingScreen } from "../components/Screens";
 import { Signin } from "../components/Signin";
 
 interface Props {}

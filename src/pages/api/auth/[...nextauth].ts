@@ -89,5 +89,13 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
         : undefined,
     // Debugging
     debug: true,
+    // Callbacks
+    callbacks: {
+      // Return userId on session
+      async session({ session, user }) {
+        session.userId = user.id;
+        return Promise.resolve(session);
+      },
+    },
   });
 }

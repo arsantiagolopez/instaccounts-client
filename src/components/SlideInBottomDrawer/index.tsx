@@ -7,30 +7,34 @@ import {
   DrawerOverlay,
   useDisclosure,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect } from "react";
 
 interface Props {
   /* Trigger component that opens drawer */
   trigger: JSX.Element;
   /* Header to diplay on top of drawer */
   header?: string;
-  /* Success function to call on button submit */
-  callbackFunction: () => void;
   /* Submit component to call success function */
   submit: JSX.Element;
   /* Content to be displayed inside DrawerContent */
   children: JSX.Element;
+  /* State for when button is loading and should be inactive */
+  isLoading: boolean;
+  /* Success boolean when drawer should be closed */
+  onSuccess: boolean;
 }
 
 const SlideInBottomDrawer: React.FC<Props> = ({
   trigger,
   header,
-  callbackFunction,
   submit,
   children,
+  isLoading,
+  onSuccess,
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-
+  // Listen to close drawer on success
+  useEffect(() => onClose(), [onSuccess]);
   return (
     <>
       <Button onClick={onOpen} {...styles.button}>
@@ -41,7 +45,7 @@ const SlideInBottomDrawer: React.FC<Props> = ({
         <DrawerContent {...styles.content}>
           <DrawerHeader {...styles.header}>{header}</DrawerHeader>
           <DrawerBody {...styles.body}>{children}</DrawerBody>
-          <Button onClick={callbackFunction} {...styles.request}>
+          <Button isDisabled={isLoading} {...styles.submit}>
             {submit}
           </Button>
         </DrawerContent>
@@ -57,6 +61,8 @@ export { SlideInBottomDrawer };
 const styles: any = {
   button: {
     variant: "unstyled",
+    height: "fit-content",
+    width: "auto",
   },
   drawer: {
     placement: "bottom",
@@ -77,13 +83,15 @@ const styles: any = {
   body: {
     paddingX: { base: "2em", md: "3vw" },
   },
-  request: {
+  submit: {
     position: "absolute",
-    bottom: { base: "-8vh", md: "-9vh" },
+    bottom: { base: "-8vh", md: "-8vh" },
+    variant: "unstyled",
     marginTop: "2vh",
     background: "white",
     color: "gray.800",
-    paddingY: { base: "1.75em", md: "2em" },
+    height: "auto",
+    minHeight: { base: "3.5em", md: "4em" },
     _hover: {
       background: "gray.100",
     },

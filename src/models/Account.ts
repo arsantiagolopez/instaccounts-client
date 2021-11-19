@@ -1,8 +1,9 @@
 import mongoose from "mongoose";
+import { AccountDocument } from "../utils/types";
 
-const { model, Schema } = mongoose;
+const { model, models, Schema } = mongoose;
 
-const AccountSchema = new Schema(
+const AccountSchema = new Schema<AccountDocument>(
   {
     userId: {
       type: Schema.Types.ObjectId,
@@ -11,12 +12,22 @@ const AccountSchema = new Schema(
     },
     username: {
       type: String,
+      required: true,
+      unique: true,
+    },
+    name: {
+      type: String,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    isAuthorized: {
+      type: Boolean,
+      default: false,
     },
     image: {
       type: String,
-    },
-    isActive: {
-      type: Boolean,
     },
     lastActive: {
       type: Date,
@@ -25,6 +36,8 @@ const AccountSchema = new Schema(
   { timestamps: true }
 );
 
-const Account = model("Account", AccountSchema, "accounts");
+const Account =
+  models.Account ||
+  model<AccountDocument>("Account", AccountSchema, "accounts");
 
 export { Account };

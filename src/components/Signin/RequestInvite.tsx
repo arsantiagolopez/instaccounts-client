@@ -1,17 +1,20 @@
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { Flex, Input, Text } from "@chakra-ui/react";
-import React from "react";
-import { useForm } from "react-hook-form";
+import React, { useState } from "react";
+import { useForm, UseFormRegisterReturn } from "react-hook-form";
 import { SlideInBottomDrawer } from "../SlideInBottomDrawer";
 
 interface Props {}
 
+interface FormData {
+  name: string;
+  email: string;
+  account: string;
+}
+
 const RequestInvite: React.FC<Props> = () => {
-  interface FormData {
-    name: string;
-    email: string;
-    account: string;
-  }
+  const [onSuccess, setOnSuccess] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const {
     handleSubmit,
@@ -19,17 +22,14 @@ const RequestInvite: React.FC<Props> = () => {
     formState: { errors },
   } = useForm<FormData>();
 
-  interface OnSubmitProps {
-    name: string;
-    email: string;
-    account: string;
-  }
-
-  // @todo: integrate request invite
-
   // Request to manage other user's account
-  const onSubmit = ({ name, email, account }: OnSubmitProps): void => {
+  const onSubmit = ({ name, email, account }: FormData): void => {
+    setIsLoading(true);
+
     console.log(name, email, account);
+    setOnSuccess(true);
+
+    setIsLoading(false);
     return;
     // signIn("email", { email, redirect: false });
     // setIsEmailSent(true);
@@ -37,10 +37,10 @@ const RequestInvite: React.FC<Props> = () => {
   };
 
   // Form fields registration
-  const nameRegister = register("name", {
+  const nameRegister: UseFormRegisterReturn = register("name", {
     required: "Your name's required.",
   });
-  const emailRegister = register("email", {
+  const emailRegister: UseFormRegisterReturn = register("email", {
     required: "What's your email?",
     pattern: {
       // Minimal email validation
@@ -48,7 +48,7 @@ const RequestInvite: React.FC<Props> = () => {
       message: "Please input a valid email address",
     },
   });
-  const accountRegister = register("account", {
+  const accountRegister: UseFormRegisterReturn = register("account", {
     required: "What's the handle or email of the account you want to manage.",
   });
 
@@ -61,8 +61,13 @@ const RequestInvite: React.FC<Props> = () => {
         </Text>
       }
       header="Request an invite ✉️"
-      callbackFunction={handleSubmit(onSubmit)}
-      submit={<Text>Send request</Text>}
+      submit={
+        <Text onClick={handleSubmit(onSubmit)} {...styles.submit}>
+          Send request
+        </Text>
+      }
+      isLoading={isLoading}
+      onSuccess={onSuccess}
     >
       <form>
         <Flex {...styles.field}>
@@ -114,5 +119,9 @@ const styles: any = {
     color: "red.500",
     paddingTop: "0.75vh",
     lineHeight: "1.25em",
+  },
+  submit: {
+    paddingY: { base: "1em", md: "1.25em" },
+    borderRadius: "0.25em",
   },
 };

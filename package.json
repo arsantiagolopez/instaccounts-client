@@ -15,6 +15,7 @@
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
     "@next-auth/mongodb-adapter": "^0.0.2-next.285",
+    "argon2": "^0.28.2",
     "axios": "^0.24.0",
     "focus-visible": "^5.2.0",
     "framer-motion": "^4",
@@ -32,6 +33,7 @@
     "yarn": "^1.22.17"
   },
   "devDependencies": {
+    "@types/argon2": "^0.15.0",
     "@types/mongoose": "^5.11.97",
     "@types/node": "^16.11.7",
     "@types/nodemailer": "^6.4.4",

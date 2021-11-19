@@ -1,7 +1,7 @@
 import { Button, Divider, Flex, Input, Text } from "@chakra-ui/react";
 import { signIn } from "next-auth/react";
 import React from "react";
-import { useForm } from "react-hook-form";
+import { useForm, UseFormRegisterReturn } from "react-hook-form";
 import { FaGoogle } from "react-icons/fa";
 import { RequestInvite } from "./RequestInvite";
 
@@ -10,11 +10,11 @@ interface Props {
   setEmail: (email: string) => void;
 }
 
-const Form: React.FC<Props> = ({ setIsEmailSent, setEmail }) => {
-  interface FormData {
-    email: string;
-  }
+interface FormData {
+  email: string;
+}
 
+const Form: React.FC<Props> = ({ setIsEmailSent, setEmail }) => {
   const {
     handleSubmit,
     register,
@@ -22,19 +22,15 @@ const Form: React.FC<Props> = ({ setIsEmailSent, setEmail }) => {
     watch,
   } = useForm<FormData>();
 
-  interface OnSubmitProps {
-    email: string;
-  }
-
   // Send magic link email
-  const onSubmit = ({ email }: OnSubmitProps): void => {
+  const onSubmit = ({ email }: FormData): void => {
     signIn("email", { email, redirect: false });
     setIsEmailSent(true);
     setEmail(email);
   };
 
   // Form field registration
-  const emailRegister = register("email", {
+  const emailRegister: UseFormRegisterReturn = register("email", {
     required: "What's your email?",
     pattern: {
       // Minimal email validation

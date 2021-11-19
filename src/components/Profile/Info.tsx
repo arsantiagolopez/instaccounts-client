@@ -3,7 +3,7 @@ import React from "react";
 
 interface Props {}
 
-const ProfileInfo: React.FC<Props> = () => {
+const Info: React.FC<Props> = () => {
   const { image, username, name, bio, posts, followers, following }: any = {
     image: "https://avatars.githubusercontent.com/u/53582710?v=4",
     username: "flightsfromsanantonio",
@@ -46,7 +46,7 @@ const ProfileInfo: React.FC<Props> = () => {
   );
 };
 
-export { ProfileInfo };
+export { Info };
 
 // Styles
 

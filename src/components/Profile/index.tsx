@@ -1,16 +1,16 @@
 import { Divider, Flex } from "@chakra-ui/react";
 import React from "react";
-import { Feed } from "../Feed";
-import { ProfileActions } from "../ProfileActions";
-import { ProfileInfo } from "../ProfileInfo";
+import { Actions } from "./Actions";
+import { Feed } from "./Feed";
+import { Info } from "./Info";
 
 interface Props {}
 
 const Profile: React.FC<Props> = () => {
   return (
     <Flex {...styles.wrapper}>
-      <ProfileInfo />
-      <ProfileActions />
+      <Info />
+      <Actions />
       <Divider {...styles.divider} />
       <Feed />
     </Flex>

@@ -3,7 +3,7 @@ import React from "react";
 
 interface Props {}
 
-const ProfileActions: React.FC<Props> = () => {
+const Actions: React.FC<Props> = () => {
   return (
     <Flex {...styles.wrapper}>
       <Flex {...styles.action}>
@@ -21,7 +21,7 @@ const ProfileActions: React.FC<Props> = () => {
   );
 };
 
-export { ProfileActions };
+export { Actions };
 
 // Styles
 

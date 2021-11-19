@@ -1,8 +1,9 @@
 import mongoose from "mongoose";
+import { User as UserType } from "../utils/types";
 
-const { model, Schema } = mongoose;
+const { model, models, Schema } = mongoose;
 
-const UserSchema = new Schema(
+const UserSchema = new Schema<UserType>(
   {
     email: {
       type: String,
@@ -17,6 +18,6 @@ const UserSchema = new Schema(
   { timestamps: true }
 );
 
-const User = model("User", UserSchema, "users");
+const User = models.User || model<UserType>("User", UserSchema, "users");
 
 export { User };

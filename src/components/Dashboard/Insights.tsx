@@ -1,15 +1,14 @@
 import { Avatar, Flex, Text } from "@chakra-ui/react";
 import React from "react";
+import { AccountDocument } from "../../utils/types";
 
-interface Props {}
+interface Props {
+  activeAccount: AccountDocument | undefined;
+}
 
-const Insights: React.FC<Props> = () => {
-  const { image, username, name }: any = {
-    id: "1",
-    image: "https://avatars.githubusercontent.com/u/53582710?v=4",
-    username: "flightsfromsanantonio",
-    name: "Flights from San Antonio",
-  };
+const Insights: React.FC<Props> = ({ activeAccount }) => {
+  const { image, username, name, isAuthorized } = activeAccount || {};
+
   return (
     <Flex {...styles.wrapper}>
       <Flex {...styles.profile}>
@@ -18,7 +17,13 @@ const Insights: React.FC<Props> = () => {
           <Text {...styles.username}>{username}</Text>
           <Text {...styles.name}>{name}</Text>
         </Flex>
-        <Text {...styles.action}>Switch</Text>
+        {isAuthorized ? (
+          <Text {...styles.action}>Switch</Text>
+        ) : (
+          <Text {...styles.action} cursor="auto">
+            Authorizing
+          </Text>
+        )}
       </Flex>
     </Flex>
   );
@@ -34,6 +39,7 @@ const styles: any = {
     paddingY: "4vh",
     height: "fit-content",
     width: "100%",
+    paddingX: { base: "1em", md: "0" },
   },
   profile: {
     direction: "row",
@@ -50,7 +56,7 @@ const styles: any = {
   meta: {
     flex: "auto",
     direction: "column",
-    paddingLeft: "0.5vw",
+    paddingLeft: "1vw",
     justify: "center",
     maxWidth: "60%",
   },
