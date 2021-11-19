@@ -18,20 +18,23 @@ const Stories: React.FC<Props> = ({ accounts, mutate, activeAccount }) => {
 
   return (
     <Flex {...styles.wrapper}>
-      <AddAccountDrawer {...addAccountDrawerProps}>
-        <Flex {...styles.account}>
-          <Avatar src={ADD_NEW_IMAGE_SRC} {...styles.avatar} />
-          <Text {...styles.username} letterSpacing="tight">
-            Add account
-          </Text>
-        </Flex>
-      </AddAccountDrawer>
-      {accounts?.map(({ _id, image, username }) => (
-        <Flex key={_id} {...styles.account}>
-          <Avatar src={image} name={username} {...styles.avatar} />
-          <Text {...styles.username}>{username}</Text>
-        </Flex>
-      ))}
+      {accounts?.length ? (
+        accounts?.map(({ _id, image, username }) => (
+          <Flex key={_id} {...styles.account}>
+            <Avatar src={image} name={username} {...styles.avatar} />
+            <Text {...styles.username}>{username}</Text>
+          </Flex>
+        ))
+      ) : (
+        <AddAccountDrawer {...addAccountDrawerProps}>
+          <Flex {...styles.account}>
+            <Avatar src={ADD_NEW_IMAGE_SRC} {...styles.avatar} />
+            <Text {...styles.username} letterSpacing="tight">
+              Add account
+            </Text>
+          </Flex>
+        </AddAccountDrawer>
+      )}
     </Flex>
   );
 };
@@ -45,7 +48,7 @@ const styles: any = {
     direction: "row",
     align: "center",
     justify: "flex-start",
-    paddingLeft: { base: "0", md: "0.5vw" },
+    paddingLeft: { base: "0.5em", md: "1vw" },
     paddingTop: { base: "2vh", md: "1vw" },
     paddingBottom: { base: "1vh", md: "0.75vw" },
     borderRadius: { base: "0", md: "0.25em" },
@@ -58,8 +61,9 @@ const styles: any = {
   },
   account: {
     direction: "column",
-    paddingLeft: "3",
-    maxWidth: "6em",
+    maxWidth: "5em",
+    minWidth: "5em",
+    width: "5em",
   },
   avatar: {
     width: { base: "3em", md: "3.25em" },

@@ -27,7 +27,11 @@ type SessionWithUserId = Session | null | WithUserIdParam;
 const getAccounts: ReqAndResWithUserId = async ({ userId }, res) => {
   try {
     const accounts = await Account.find({ userId });
-    console.log(accounts);
+    // Return in order of creation (newest last)
+    accounts.sort(
+      (a, b) =>
+        new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+    );
     return res.status(200).json(accounts);
   } catch (error) {
     return res.status(400).json({ message: error });

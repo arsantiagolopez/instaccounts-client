@@ -7,7 +7,7 @@ import {
   Icon,
   Text,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IoAddSharp, IoCheckmarkCircleSharp } from "react-icons/io5";
 import useSWR, { SWRResponse } from "swr";
 import axios from "../../axios";
@@ -23,15 +23,23 @@ const Accounts: React.FC<Props> = () => {
     useSWR("/api/accounts");
 
   // Update selected account's lastActive field to newest date
-  const handleSelect = async (id: string) => {
-    const response = await axios.put(`/api/accounts/active/${id}`);
-    console.log("response", response);
-    // mutate([...[accounts], data]);
-    // setActiveId(data?._id);
+  const handleSelect = async (id: string): Promise<void> => {
+    const { data } = await axios.put(`/api/accounts/active/${id}`);
+    setActiveId(data?._id);
   };
 
-  const addAccountDrawerProps = { accounts, mutate };
+  // Set initial activeId to the last active item
+  useEffect(() => {
+    if (accounts) {
+      const sorted = [...accounts].sort(
+        (a, b) =>
+          new Date(b.lastActive).getTime() - new Date(a.lastActive).getTime()
+      );
+      setActiveId(sorted[0]._id);
+    }
+  }, [accounts]);
 
+  const addAccountDrawerProps = { accounts, mutate };
   return (
     <Flex {...styles.wrapper}>
       {accounts?.length ? (
