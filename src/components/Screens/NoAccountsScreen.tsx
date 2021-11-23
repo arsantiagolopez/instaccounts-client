@@ -1,17 +1,20 @@
 import { Flex, Heading, Text } from "@chakra-ui/react";
 import React from "react";
+import { useAccounts } from "../../utils/useAccounts";
 import { AddAccountDrawer } from "../AddAccountDrawer";
 
 interface Props {}
 
 const NoAccountsScreen: React.FC<Props> = () => {
+  const { accounts, mutate } = useAccounts();
+  const addAccountDrawerProps = { accounts, mutate };
   return (
     <Flex {...styles.wrapper}>
       <Heading {...styles.emoji}>😕</Heading>
       <Text {...styles.text}>
         No account's been added. Add one to start managing it.
       </Text>
-      <AddAccountDrawer>
+      <AddAccountDrawer {...addAccountDrawerProps}>
         <Text {...styles.add}>Add account</Text>
       </AddAccountDrawer>
     </Flex>

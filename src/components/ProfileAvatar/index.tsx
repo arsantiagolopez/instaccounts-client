@@ -17,7 +17,7 @@ const ProfileAvatar: React.FC<Props> = ({ user }) => {
 
   const panelRef: any = useRef(null);
 
-  const handleBlur = (event: { relatedTarget: any }): void => {
+  const handleBlur = (event: React.MouseEvent): void => {
     const { relatedTarget: clickedNode } = event;
 
     // If clicked outside panel
