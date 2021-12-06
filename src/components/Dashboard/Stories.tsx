@@ -1,15 +1,23 @@
-import { Avatar, Circle, Flex, Icon, Text } from "@chakra-ui/react";
+import {
+  Avatar,
+  Circle,
+  Flex,
+  Icon,
+  SkeletonCircle,
+  Text,
+} from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { IoAddSharp } from "react-icons/io5";
 import { KeyedMutator } from "swr";
 import axios from "../../axios";
-import { AccountDocument } from "../../utils/types";
+import { InstagramEntity } from "../../entities";
+import { StyleProps } from "../../types";
 import { AddAccountDrawer } from "../AddAccountDrawer";
 
 interface Props {
-  accounts: AccountDocument[] | undefined;
-  active: AccountDocument | null;
-  mutate: KeyedMutator<AccountDocument[]>;
+  accounts: InstagramEntity[] | undefined;
+  active: InstagramEntity | null;
+  mutate: KeyedMutator<InstagramEntity[]>;
 }
 
 const Stories: React.FC<Props> = ({ accounts, active, mutate }) => {
@@ -17,12 +25,14 @@ const Stories: React.FC<Props> = ({ accounts, active, mutate }) => {
 
   // Update selected account's lastActive field to newest date
   const handleSelect = async (id: string): Promise<void> => {
-    const { data } = await axios.put(`/api/accounts/active/${id}`);
-    setActiveId(data?._id);
+    const { data } = await axios.put(
+      `${process.env.NEXT_PUBLIC_API_URL}/instagrams/active/${id}`
+    );
+    setActiveId(data?.id);
 
     const updatedAccounts = accounts?.map((account) => {
-      const { _id, lastActive } = account;
-      if (_id === data?._id) {
+      const { id, lastActive } = account;
+      if (id === data?.id) {
         return { ...account, lastActive };
       }
       return account;
@@ -31,31 +41,49 @@ const Stories: React.FC<Props> = ({ accounts, active, mutate }) => {
     mutate(updatedAccounts);
   };
 
-  useEffect(() => setActiveId(active?._id), [active]);
+  useEffect(() => {
+    if (active) setActiveId(active?.id);
+  }, [active]);
 
   const addAccountDrawerProps = { accounts, mutate };
 
   return (
     <Flex {...styles.wrapper}>
       {accounts?.length ? (
-        accounts?.map(({ _id, image, username }) => (
-          <Flex key={_id} onClick={() => handleSelect(_id)} {...styles.account}>
-            <Avatar
-              src={image}
-              name={username}
-              boxShadow={
-                activeId === _id
-                  ? "0 0 0 2px black"
-                  : "0 0 0 2px rgb(230,230,230)"
-              }
-              {...styles.avatar}
-            />
+        accounts?.map(({ id, image, username }, index) => (
+          <Flex
+            key={id ?? index}
+            onClick={() => handleSelect(id)}
+            {...styles.account}
+          >
+            {image ? (
+              <Avatar
+                src={image}
+                boxShadow={
+                  activeId === id
+                    ? "0 0 0 2px black"
+                    : "0 0 0 2px rgb(230,230,230)"
+                }
+                {...styles.avatar}
+              />
+            ) : (
+              <SkeletonCircle
+                boxShadow={
+                  activeId === id
+                    ? "0 0 0 2px black"
+                    : "0 0 0 2px rgb(230,230,230)"
+                }
+                {...styles.avatar}
+                {...styles.skeleton}
+              />
+            )}
+
             <Text {...styles.username}>{username}</Text>
           </Flex>
         ))
       ) : (
         <AddAccountDrawer {...addAccountDrawerProps}>
-          <Flex {...styles.account}>
+          <Flex {...styles.account} marginLeft="1em">
             <Circle {...styles.avatar}>
               <Icon as={IoAddSharp} {...styles.add} />
             </Circle>
@@ -73,7 +101,7 @@ export { Stories };
 
 // Styles
 
-const styles: any = {
+const styles: StyleProps = {
   wrapper: {
     direction: "row",
     align: "center",
@@ -91,9 +119,9 @@ const styles: any = {
   },
   account: {
     direction: "column",
-    maxWidth: "5em",
-    minWidth: "5em",
-    width: "5em",
+    maxWidth: { base: "4.5em", md: "5em" },
+    minWidth: { base: "4.5em", md: "5em" },
+    width: { base: "4.5em", md: "5em" },
   },
   avatar: {
     width: { base: "3em", md: "3.25em" },
@@ -101,6 +129,10 @@ const styles: any = {
     alignSelf: "center",
     cursor: "pointer",
     border: "2px solid white",
+  },
+  skeleton: {
+    width: { base: "3.25em", md: "3.5em" },
+    height: { base: "3.25em", md: "3.5em" },
   },
   username: {
     textAlign: "center",

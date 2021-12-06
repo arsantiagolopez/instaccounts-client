@@ -1,5 +1,6 @@
 import { Flex, Spinner } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
+import { StyleProps } from "../../types";
 import { useDimensions } from "../../utils/useDimensions";
 
 interface Props {
@@ -25,7 +26,7 @@ export { LoadingScreen };
 
 // Styles
 
-const styles: any = {
+const styles: StyleProps = {
   wrapper: {
     zIndex: "5000",
     position: "absolute",

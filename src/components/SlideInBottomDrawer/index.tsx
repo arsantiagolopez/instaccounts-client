@@ -8,6 +8,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import React, { useEffect } from "react";
+import { StyleProps } from "../../types";
 
 interface Props {
   /* Trigger component that opens drawer */
@@ -58,7 +59,7 @@ export { SlideInBottomDrawer };
 
 // Styles
 
-const styles: any = {
+const styles: StyleProps = {
   button: {
     variant: "unstyled",
     height: "fit-content",

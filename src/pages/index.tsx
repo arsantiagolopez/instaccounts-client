@@ -1,3 +1,4 @@
+import { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import Head from "next/head";
 import React from "react";
@@ -8,7 +9,7 @@ import { Signin } from "../components/Signin";
 
 interface Props {}
 
-const IndexPage: React.FC<Props> = () => {
+const IndexPage: NextPage<Props> = () => {
   const { data, status } = useSession();
   const loading: boolean = status === "loading";
   const { user } = data || {};
@@ -16,11 +17,7 @@ const IndexPage: React.FC<Props> = () => {
   let title: string | undefined;
   let content: JSX.Element | undefined;
 
-  interface User {
-    user: object | undefined;
-  }
-
-  const layoutProps: User = { user };
+  const layoutProps = { user };
 
   if (!user) {
     title = "- Sign in";

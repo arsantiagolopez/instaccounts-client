@@ -2,6 +2,7 @@ import { Button, Flex, Heading, Icon, Text } from "@chakra-ui/react";
 import React from "react";
 import FadeIn from "react-fade-in";
 import { SiMinutemailer } from "react-icons/si";
+import { StyleProps } from "../../types";
 
 interface Props {
   setIsEmailSent: (isEmailSent: boolean) => void;
@@ -15,15 +16,15 @@ const EmailSent: React.FC<Props> = ({ setIsEmailSent, email }) => {
         <Icon as={SiMinutemailer} {...styles.icon} />
         <Heading {...styles.heading}>Check your inbox!</Heading>
         <Flex {...styles.text}>
-          <Text>We've sent a sign in link to {email} </Text>
+          <Text>We&apos;ve sent a sign in link to {email} </Text>
           <Text>
-            Can't find it? Try your <b>spam folder.</b>
+            Can&apos;t find it? Try your <b>spam folder.</b>
           </Text>
         </Flex>
 
         <Flex {...styles.links}>
           <Button onClick={() => setIsEmailSent(false)} {...styles.link}>
-            It's not there. Send me another one.
+            It&apos;s not there. Send me another one.
           </Button>
           <Button onClick={() => setIsEmailSent(false)} {...styles.link}>
             Go back
@@ -38,7 +39,7 @@ export { EmailSent };
 
 // Styles
 
-const styles: any = {
+const styles: StyleProps = {
   wrapper: {
     direction: "column",
     justify: "center",

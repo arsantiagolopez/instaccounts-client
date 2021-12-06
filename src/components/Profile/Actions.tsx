@@ -1,5 +1,6 @@
 import { Avatar, Flex, Text } from "@chakra-ui/react";
 import React from "react";
+import { StyleProps } from "../../types";
 
 interface Props {}
 
@@ -25,7 +26,7 @@ export { Actions };
 
 // Styles
 
-const styles: any = {
+const styles: StyleProps = {
   wrapper: {
     direction: "row",
     minHeight: { base: "12vh", md: "15vh" },

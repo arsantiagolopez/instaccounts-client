@@ -1,5 +1,6 @@
 import { Flex, Heading, Text } from "@chakra-ui/react";
 import React from "react";
+import { StyleProps } from "../../types";
 
 interface Props {}
 
@@ -8,7 +9,7 @@ const WaitingAuthorizationScreen: React.FC<Props> = () => {
     <Flex {...styles.wrapper}>
       <Heading {...styles.emoji}>🙂</Heading>
       <Text {...styles.text}>
-        Better. Your account's being authorized. <br />
+        Better. Your account&apos;s being authorized. <br />
         Come back in a bit...
       </Text>
     </Flex>
@@ -19,7 +20,7 @@ export { WaitingAuthorizationScreen };
 
 // Styles
 
-const styles: any = {
+const styles: StyleProps = {
   wrapper: {
     direction: "column",
     justify: "center",

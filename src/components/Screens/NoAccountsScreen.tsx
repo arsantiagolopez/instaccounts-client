@@ -1,5 +1,6 @@
 import { Flex, Heading, Text } from "@chakra-ui/react";
 import React from "react";
+import { StyleProps } from "../../types";
 import { useAccounts } from "../../utils/useAccounts";
 import { AddAccountDrawer } from "../AddAccountDrawer";
 
@@ -12,7 +13,7 @@ const NoAccountsScreen: React.FC<Props> = () => {
     <Flex {...styles.wrapper}>
       <Heading {...styles.emoji}>😕</Heading>
       <Text {...styles.text}>
-        No account's been added. Add one to start managing it.
+        No account&apos;s been added. Add one to start managing it.
       </Text>
       <AddAccountDrawer {...addAccountDrawerProps}>
         <Text {...styles.add}>Add account</Text>
@@ -25,7 +26,7 @@ export { NoAccountsScreen };
 
 // Styles
 
-const styles: any = {
+const styles: StyleProps = {
   wrapper: {
     direction: "column",
     justify: "center",

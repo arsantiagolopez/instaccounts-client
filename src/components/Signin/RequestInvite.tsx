@@ -2,6 +2,7 @@ import { ChevronDownIcon } from "@chakra-ui/icons";
 import { Flex, Input, Text } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useForm, UseFormRegisterReturn } from "react-hook-form";
+import { StyleProps } from "../../types";
 import { SlideInBottomDrawer } from "../SlideInBottomDrawer";
 
 interface Props {}
@@ -103,7 +104,7 @@ export { RequestInvite };
 
 // Styles
 
-const styles: any = {
+const styles: StyleProps = {
   trigger: {
     fontSize: "10pt",
     marginTop: "2vh",

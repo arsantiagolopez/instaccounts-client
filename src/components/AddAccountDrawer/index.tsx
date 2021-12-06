@@ -1,16 +1,17 @@
 import { Flex, Input, Text } from "@chakra-ui/react";
-import { AxiosResponse } from "axios";
 import React, { useEffect, useState } from "react";
 import { useForm, UseFormRegisterReturn } from "react-hook-form";
 import { KeyedMutator } from "swr";
-import axios from "../../axios";
-import { AccountDocument } from "../../utils/types";
+import { InstagramEntity } from "../../entities";
+import { StyleProps } from "../../types";
+import { handleMutation } from "../../utils/handleMutation";
+import { showToast } from "../../utils/showToast";
 import { SlideInBottomDrawer } from "../SlideInBottomDrawer";
 
 interface Props {
   children: JSX.Element;
-  accounts: AccountDocument[] | undefined;
-  mutate: KeyedMutator<AccountDocument[]>;
+  accounts: InstagramEntity[] | undefined;
+  mutate: KeyedMutator<InstagramEntity[]>;
 }
 
 interface FormData {
@@ -29,16 +30,58 @@ const AddAccountDrawer: React.FC<Props> = ({ children, accounts, mutate }) => {
   } = useForm<FormData>();
 
   // Add account & mutate for better UI
-  const onSubmit = async ({ username, password }: FormData): Promise<void> => {
-    setIsLoading(true);
-    const { status, data }: AxiosResponse = await axios.post<AccountDocument>(
-      "/api/accounts/",
-      { username, password }
-    );
-    if (status === 200) {
-      setOnSuccess(true);
+  const createAccount = async (args: FormData): Promise<boolean> => {
+    const success = true;
+    const { data, error } = await handleMutation("/instagrams", args);
+
+    if (error) {
+      showToast({ status: "error", title: error });
+      return !success;
+    }
+
+    setOnSuccess(true);
+    mutate([...[accounts], data]);
+    return success;
+  };
+
+  // Authorize recently created account
+  const authorizeAccount = async (args: FormData): Promise<boolean> => {
+    const success = true;
+    const { data, error } = await handleMutation("/instagrams/authorize", args);
+
+    if (error) {
+      showToast({ status: "error", title: error });
+      return !success;
+    }
+
+    // Logged in successfully
+    if (data) {
       mutate([...[accounts], data]);
     }
+
+    return success;
+  };
+
+  // Fetch & populate recently created account
+  const downloadProfile = async (args: FormData): Promise<void> => {
+    const { data, error } = await handleMutation("/instagrams/download", args);
+
+    if (error) {
+      showToast({ status: "error", title: error });
+      return;
+    }
+
+    if (data) {
+    }
+  };
+
+  const onSubmit = async (args: FormData): Promise<void> => {
+    setIsLoading(true);
+    const accountCreated = await createAccount(args);
+    if (!accountCreated) return;
+    const accountAuthorized = await authorizeAccount(args);
+    if (!accountAuthorized) return;
+    await downloadProfile(args);
     setIsLoading(false);
   };
 
@@ -101,7 +144,7 @@ export { AddAccountDrawer };
 
 // Styles
 
-const styles: any = {
+const styles: StyleProps = {
   trigger: {
     position: "absolute",
     fontSize: "10pt",

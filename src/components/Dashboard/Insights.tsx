@@ -1,9 +1,10 @@
-import { Avatar, Flex, Text } from "@chakra-ui/react";
+import { Avatar, Flex, SkeletonCircle, Text } from "@chakra-ui/react";
 import React from "react";
-import { AccountDocument } from "../../utils/types";
+import { InstagramEntity } from "../../entities";
+import { StyleProps } from "../../types";
 
 interface Props {
-  active: AccountDocument | null;
+  active: InstagramEntity | null;
 }
 
 const Insights: React.FC<Props> = ({ active }) => {
@@ -12,7 +13,12 @@ const Insights: React.FC<Props> = ({ active }) => {
   return (
     <Flex {...styles.wrapper}>
       <Flex {...styles.profile}>
-        <Avatar src={image} name={name} {...styles.avatar} />
+        {image ? (
+          <Avatar src={image} {...styles.avatar} />
+        ) : (
+          <SkeletonCircle {...styles.avatar} />
+        )}
+
         <Flex {...styles.meta}>
           <Text {...styles.username}>{username}</Text>
           <Text {...styles.name}>{name}</Text>
@@ -33,7 +39,7 @@ export { Insights };
 
 // Styles
 
-const styles: any = {
+const styles: StyleProps = {
   wrapper: {
     direction: "column",
     paddingY: "4vh",

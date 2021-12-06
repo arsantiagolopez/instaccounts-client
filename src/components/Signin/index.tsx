@@ -1,5 +1,6 @@
 import { Flex } from "@chakra-ui/react";
 import React, { useState } from "react";
+import { StyleProps } from "../../types";
 import { Logo } from "../Logo";
 import { EmailSent } from "./EmailSent";
 import { Form } from "./Form";
@@ -34,7 +35,7 @@ export { Signin };
 
 // Styles
 
-const styles: any = {
+const styles: StyleProps = {
   wrapper: {
     direction: "column",
     minHeight: "100vh",

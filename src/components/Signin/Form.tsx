@@ -3,6 +3,7 @@ import { signIn } from "next-auth/react";
 import React from "react";
 import { useForm, UseFormRegisterReturn } from "react-hook-form";
 import { FaGoogle } from "react-icons/fa";
+import { StyleProps } from "../../types";
 import { RequestInvite } from "./RequestInvite";
 
 interface Props {
@@ -77,7 +78,7 @@ export { Form };
 
 // Styles
 
-const styles: any = {
+const styles: StyleProps = {
   wrapper: {
     direction: "column",
     width: "100%",

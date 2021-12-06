@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import useSWR, { SWRResponse } from "swr";
-import { AccountDocument } from "./types";
+import { InstagramEntity } from "../entities";
 
 const useAccounts = () => {
-  const [active, setActive] = useState<AccountDocument | null>(null);
-  const { data: accounts, mutate }: SWRResponse<AccountDocument[], Error> =
-    useSWR("/api/accounts");
+  const [active, setActive] = useState<InstagramEntity | null>(null);
+  const { data: accounts, mutate }: SWRResponse<InstagramEntity[], Error> =
+    useSWR(`${process.env.NEXT_PUBLIC_API_URL}/instagrams`);
 
   // Set active account to the latest active
   useEffect(() => {

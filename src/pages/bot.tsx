@@ -1,13 +1,12 @@
-import { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import Head from "next/head";
 import React from "react";
-import { Accounts } from "../components/Accounts";
+import { Bot } from "../components/Bot";
 import { Layout } from "../components/Layout";
 
 interface Props {}
 
-const AccountsPage: NextPage<Props> = () => {
+const BotPage: React.FC<Props> = () => {
   const { data } = useSession();
   const { user } = data || {};
 
@@ -16,14 +15,14 @@ const AccountsPage: NextPage<Props> = () => {
   return (
     <>
       <Head>
-        <title>Instaccounts - Select Account</title>
+        <title>Instaccounts - Bot</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout {...layoutProps}>
-        <Accounts />
+        <Bot />
       </Layout>
     </>
   );
 };
 
-export default AccountsPage;
+export default BotPage;

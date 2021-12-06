@@ -4,7 +4,9 @@ import { useRouter } from "next/router";
 import React from "react";
 import { BiAt } from "react-icons/bi";
 import { BsHouseDoor, BsHouseDoorFill } from "react-icons/bs";
-import { IoAt } from "react-icons/io5";
+import { IoAt, IoTrendingUpSharp } from "react-icons/io5";
+import { MdTrendingUp } from "react-icons/md";
+import { StyleProps } from "../../types";
 import { Logo } from "../Logo";
 import { ProfileAvatar } from "../ProfileAvatar";
 
@@ -38,6 +40,19 @@ const Navigation: React.FC<Props> = ({ user }) => {
             {...styles.icon}
           />
         </Link>
+        <Link href="/bot">
+          <IconButton
+            aria-label="InstaPy Bot"
+            icon={
+              pathname.includes("/bot") ? (
+                <MdTrendingUp />
+              ) : (
+                <IoTrendingUpSharp />
+              )
+            }
+            {...styles.icon}
+          />
+        </Link>
         <ProfileAvatar {...profileAvatarProps} />
       </Flex>
     </Flex>
@@ -48,7 +63,7 @@ export { Navigation };
 
 // Styles
 
-const styles: any = {
+const styles: StyleProps = {
   wrapper: {
     zIndex: 998,
     position: "sticky",

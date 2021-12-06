@@ -1,9 +1,9 @@
-import axios, { AxiosInstance } from "axios";
+import axiosStatic, { AxiosInstance } from "axios";
 
-const axiosInstance: AxiosInstance = axios.create({
+const axios: AxiosInstance = axiosStatic.create({
   baseURL: process.env.NEXTAUTH_URL,
   withCredentials: true,
   responseType: "json",
 });
 
-export default axiosInstance;
+export default axios;

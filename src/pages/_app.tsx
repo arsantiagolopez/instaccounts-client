@@ -2,9 +2,11 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { NextComponentType, NextPageContext } from "next";
 import { SessionProvider } from "next-auth/react";
 import type { AppProps as NextAppProps } from "next/app";
+import "reflect-metadata";
 import { SWRConfig } from "swr";
 import axios from "../axios";
 import { ProtectedRoute } from "../components/ProtectedRoute";
+import "../styles/global.css";
 import theme from "../theme";
 
 interface IsProtectedProp {

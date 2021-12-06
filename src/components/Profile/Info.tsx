@@ -1,23 +1,26 @@
-import { Avatar, Flex, Text } from "@chakra-ui/react";
+import { Avatar, Flex, SkeletonCircle, Text } from "@chakra-ui/react";
 import React from "react";
+import { InstagramEntity } from "../../entities";
+import { StyleProps } from "../../types";
 
-interface Props {}
+interface Props {
+  active: InstagramEntity | null;
+  instagramFiles: { [key: string]: string[] };
+}
 
-const Info: React.FC<Props> = () => {
-  const { image, username, name, bio, posts, followers, following }: any = {
-    image: "https://avatars.githubusercontent.com/u/53582710?v=4",
-    username: "flightsfromsanantonio",
-    name: "Alexander Santiago",
-    bio: "📍Midtown, TX\n\nSoftware Developer\n\n@lifeingodmode",
-    posts: "231",
-    followers: "5781",
-    following: "1780",
-  };
+const Info: React.FC<Props> = ({ active, instagramFiles }) => {
+  const { image, username, name, bio, followers, following } = active || {};
+
+  const posts = instagramFiles[username!]?.length;
 
   return (
     <Flex {...styles.wrapper}>
       <Flex {...styles.profile}>
-        <Avatar src={image} name={name} {...styles.avatar} />
+        {image || typeof image === "undefined" ? (
+          <Avatar src={image} {...styles.avatar} />
+        ) : (
+          <SkeletonCircle {...styles.avatar} />
+        )}
         <Flex {...styles.info}>
           <Text {...styles.username}>{username}</Text>
           <Flex {...styles.insights}>
@@ -50,7 +53,7 @@ export { Info };
 
 // Styles
 
-const styles: any = {
+const styles: StyleProps = {
   wrapper: {
     direction: "column",
   },
@@ -58,8 +61,8 @@ const styles: any = {
     direction: "row",
   },
   avatar: {
-    height: { base: "5em", md: "10em" },
-    width: { base: "5em", md: "10em" },
+    height: { base: "4.5em", md: "10em" },
+    width: { base: "4.5em", md: "10em" },
     marginX: { base: "1em", md: "5vw" },
     marginY: { base: "1em", md: "5vh" },
   },
@@ -88,17 +91,18 @@ const styles: any = {
   meta: {
     display: { base: "flex", md: "none" },
     direction: "column",
-    paddingBottom: "1vh",
+    paddingBottom: { base: "3vh", md: "1vh" },
     paddingX: { base: "1em", md: "0" },
     minHeight: "10vh",
   },
   name: {
     fontWeight: "semibold",
     fontSize: { base: "12pt", md: "14pt" },
-    paddingBottom: "1vh",
+    paddingBottom: "0.5vh",
   },
   text: {
     fontSize: { base: "10pt", md: "12pt" },
+    whiteSpace: "pre-line", // Allow \n to show new lines
   },
   desktopOnly: {
     display: { base: "none", md: "flex" },

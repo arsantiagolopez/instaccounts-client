@@ -1,0 +1,253 @@
+import {
+  AspectRatio,
+  Avatar,
+  Flex,
+  Heading,
+  Icon,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalOverlay,
+  Skeleton,
+  Text,
+} from "@chakra-ui/react";
+import moment from "moment";
+import Image from "next/image";
+import React from "react";
+import { TiHeartFullOutline } from "react-icons/ti";
+import { VscChevronLeft } from "react-icons/vsc";
+import { PostEntity } from "../../entities";
+import { StyleProps } from "../../types";
+import { useAccounts } from "../../utils/useAccounts";
+
+interface Props {
+  post: PostEntity;
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+const PostModal: React.FC<Props> = ({ post, isOpen, onClose }) => {
+  const { id, image, username, location, likes, comments, timestamp, caption } =
+    post || {};
+
+  const { active } = useAccounts();
+
+  const date = moment.unix(parseInt(timestamp));
+  const formatedDate = date.format("MMMM D");
+  const weeksFromNow = moment().diff(date, "weeks");
+  const daysSincePost = moment().diff(date, "days");
+  const fromNow =
+    daysSincePost > 7 ? `${weeksFromNow}w` : moment(date).fromNow();
+
+  return (
+    <Modal isOpen={isOpen} onClose={onClose} {...styles.wrapper}>
+      <ModalOverlay {...styles.overlay} />
+
+      <ModalContent {...styles.content}>
+        <ModalBody {...styles.body}>
+          <Flex {...styles.topBar}>
+            <ModalCloseButton as={VscChevronLeft} {...styles.backButton} />
+            <Heading size="sm">Photo</Heading>
+          </Flex>
+
+          <Flex {...styles.profileBar} {...styles.mobileOnly}>
+            <Avatar src={active?.image} {...styles.avatar} />
+            <Flex {...styles.info}>
+              <Text {...styles.username}>{username}</Text>
+              <Text {...styles.location}>{location}</Text>
+            </Flex>
+          </Flex>
+
+          <AspectRatio {...styles.aspect}>
+            <>
+              <Skeleton {...styles.skeleton} />
+              <Image
+                src={image}
+                alt={id}
+                layout="fill"
+                objectFit="cover"
+                quality={100}
+                priority={true}
+              />
+            </>
+          </AspectRatio>
+
+          <Flex {...styles.meta}>
+            <Flex {...styles.profileBar} {...styles.desktopOnly}>
+              <Avatar src={active?.image} {...styles.avatar} />
+              <Flex {...styles.info}>
+                <Text {...styles.username}>{username}</Text>
+                <Text {...styles.location}>{location}</Text>
+              </Flex>
+            </Flex>
+
+            <Flex {...styles.comments}>
+              <Flex {...styles.caption}>
+                <Avatar src={active?.image} {...styles.captionAvatar} />
+                <Flex {...styles.comment}>
+                  <Text {...styles.text} marginLeft="1em">
+                    <b>{username}</b> {caption}
+                  </Text>
+                  <Text {...styles.fromNow}>{fromNow}</Text>
+                </Flex>
+              </Flex>
+              <Text {...styles.allComments}>{comments} comments</Text>
+            </Flex>
+
+            <Flex {...styles.likes}>
+              <Text {...styles.text}>
+                <Icon as={TiHeartFullOutline} {...styles.icon} />
+                Liked by <b>{likes} people</b>
+              </Text>
+            </Flex>
+
+            <Text {...styles.timestamp}>{formatedDate}</Text>
+          </Flex>
+        </ModalBody>
+      </ModalContent>
+    </Modal>
+  );
+};
+
+export { PostModal };
+
+// Styles
+
+const styles: StyleProps = {
+  wrapper: {
+    size: "full",
+  },
+  overlay: {
+    background: "rgba(0,0,0,0.8)",
+  },
+  content: {
+    borderRadius: "0",
+    height: { base: "100vh", md: "80vh" },
+    marginX: { base: "0", md: "15vh" },
+    overflow: "hidden",
+  },
+  body: {
+    display: "flex",
+    flexDirection: { base: "column", md: "row" },
+    width: { base: "100%", md: "100%" },
+    padding: "0",
+  },
+  meta: {
+    flex: 4,
+    direction: "column",
+    height: "100%",
+    paddingY: "0",
+  },
+  topBar: {
+    display: { base: "flex", md: "none" },
+    height: "3em",
+    align: "center",
+    justify: "center",
+    borderBottom: "1px solid",
+    borderColor: "gray.200",
+  },
+  backButton: {
+    position: "absolute",
+    left: "1.5em",
+    height: "3.25em",
+    color: "black",
+    zIndex: "9999",
+    size: "sm",
+  },
+  mobileOnly: {
+    display: { base: "flex", md: "none" },
+  },
+  desktopOnly: {
+    display: { base: "none", md: "flex" },
+  },
+  profileBar: {
+    direction: "row",
+    height: { base: "4.25em", md: "7em" },
+    width: "100%",
+    align: "center",
+    borderBottom: "1px solid",
+    borderColor: "gray.100",
+    paddingX: { base: "1em", md: "1.5em" },
+  },
+  avatar: {
+    height: { base: "1.75em", md: "1.5em" },
+    width: { base: "1.75em", md: "1.5em" },
+  },
+  text: {
+    fontSize: "11pt",
+  },
+  info: {
+    direction: "column",
+    marginLeft: "1em",
+  },
+  username: {
+    fontSize: "11pt",
+    fontWeight: "semibold",
+    letterSpacing: "tight",
+    lineHeight: "1.25em",
+  },
+  location: {
+    fontSize: "9pt",
+  },
+  aspect: {
+    flex: 6,
+    ratio: 1,
+  },
+  skeleton: {
+    width: "100%",
+    height: "100%",
+  },
+  comments: {
+    order: { base: 2, md: 1 },
+    direction: "column",
+    height: "100%",
+    paddingX: { base: "1em", md: "1.5em" },
+    borderBottom: { base: "0", md: "1px solid" },
+    borderColor: { base: "none", md: "gray.100" },
+  },
+  caption: {
+    direction: "row",
+    marginTop: "1.5em",
+    marginBottom: "0.25em",
+    align: "flex-start",
+  },
+  captionAvatar: {
+    height: { base: "1.25em", md: "1.5em" },
+    width: { base: "1.25em", md: "1.5em" },
+  },
+  comment: {
+    direction: "column",
+  },
+  fromNow: {
+    fontSize: "9pt",
+    color: "gray.500",
+    paddingY: "1em",
+    paddingX: { base: "1em", md: "1.25em" },
+  },
+  allComments: {
+    fontSize: { base: "10pt", md: "9pt" },
+    paddingLeft: { base: "0", md: "3.5em" },
+    color: "gray.500",
+  },
+  likes: {
+    order: { base: 1, md: 2 },
+    direction: "column",
+    marginTop: "1em",
+    paddingX: { base: "1em", md: "1.25em" },
+  },
+  icon: {
+    marginRight: "2",
+    fontSize: "16pt",
+    marginBottom: "-1",
+  },
+  timestamp: {
+    order: 3,
+    textTransform: "uppercase",
+    fontSize: "8pt",
+    color: "gray.500",
+    paddingY: "1em",
+    marginBottom: { base: "0", md: "7em" },
+    paddingX: { base: "1em", md: "2em" },
+  },
+};

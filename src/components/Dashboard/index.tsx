@@ -1,5 +1,6 @@
 import { Flex } from "@chakra-ui/react";
 import React from "react";
+import { StyleProps } from "../../types";
 import { useAccounts } from "../../utils/useAccounts";
 import { Feed } from "./Feed";
 import { Insights } from "./Insights";
@@ -33,7 +34,7 @@ export { Dashboard };
 
 // Styles
 
-const styles: any = {
+const styles: StyleProps = {
   wrapper: {
     direction: { base: "column", md: "row" },
     paddingX: { base: "0", md: "22vw" },

@@ -1,5 +1,6 @@
 import { Flex } from "@chakra-ui/react";
 import React from "react";
+import { StyleProps } from "../../types";
 import { Navigation } from "../Navigation";
 
 interface Props {
@@ -21,7 +22,7 @@ export { Layout };
 
 // Styles
 
-const styles: any = {
+const styles: StyleProps = {
   wrapper: {
     direction: "column",
   },

@@ -1,9 +1,11 @@
-import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
+import { TypeORMLegacyAdapter } from "@next-auth/typeorm-legacy-adapter";
 import { NextApiRequest, NextApiResponse } from "next";
 import NextAuth from "next-auth";
 import EmailProvider from "next-auth/providers/email";
 import GoogleProvider from "next-auth/providers/google";
-import clientPromise from "../../../utils/mongodb";
+import "reflect-metadata";
+import * as entities from "../../../entities";
+import { connection } from "../../../utils/database";
 
 interface ServerAndFrom {
   server: string | undefined;
@@ -54,9 +56,8 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
         },
       }),
     ],
-    adapter: MongoDBAdapter({
-      db: (await clientPromise).db("main"),
-    }),
+    // TypeORM database
+    adapter: TypeORMLegacyAdapter(connection, { entities }),
     secret: process.env.SECRET,
     session: {
       // Seconds - How long until an idle session expires and is no longer valid.

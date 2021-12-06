@@ -1,18 +1,11 @@
-import {
-  AspectRatio,
-  Avatar,
-  Button,
-  Circle,
-  Flex,
-  Icon,
-  Text,
-} from "@chakra-ui/react";
+import { Circle, Flex, Icon, Text } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { IoAddSharp, IoCheckmarkCircleSharp } from "react-icons/io5";
-import axios from "../../axios";
+import { IoAddSharp } from "react-icons/io5";
+import { StyleProps } from "../../types";
 import { useAccounts } from "../../utils/useAccounts";
 import { AddAccountDrawer } from "../AddAccountDrawer";
 import { NoAccountsScreen } from "../Screens";
+import { Card } from "./Card";
 
 interface Props {}
 
@@ -20,42 +13,19 @@ const Accounts: React.FC<Props> = () => {
   const [activeId, setActiveId] = useState<string | null>(null);
   const { accounts, active, mutate } = useAccounts();
 
-  // Update selected account's lastActive field to newest date
-  const handleSelect = async (id: string): Promise<void> => {
-    const { data } = await axios.put(`/api/accounts/active/${id}`);
-    setActiveId(data?._id);
-  };
-
-  useEffect(() => setActiveId(active?._id), [active]);
+  useEffect(() => {
+    if (active) setActiveId(active?.id);
+  }, [active]);
 
   const addAccountDrawerProps = { accounts, mutate };
+  const cardProps = { activeId, setActiveId };
 
   return (
     <Flex {...styles.wrapper}>
       {accounts?.length ? (
         <>
-          {accounts.map(({ _id, image, username }) => (
-            <Button
-              key={_id}
-              onClick={() => handleSelect(_id)}
-              {...styles.button}
-            >
-              <AspectRatio {...styles.aspect}>
-                <Avatar src={image} name={username} {...styles.image} />
-              </AspectRatio>
-              <Flex {...styles.account}>
-                <Flex {...styles.info}>
-                  <Text {...styles.username}>{username}</Text>
-                  {/* <Text {...styles.meta}>
-                  <Circle {...styles.circle} />
-                  {meta}
-                </Text> */}
-                </Flex>
-                {activeId === _id && (
-                  <Icon as={IoCheckmarkCircleSharp} {...styles.icon} />
-                )}
-              </Flex>
-            </Button>
+          {accounts.map((account, index) => (
+            <Card key={account.id ?? index} account={account} {...cardProps} />
           ))}
           <AddAccountDrawer {...addAccountDrawerProps}>
             <Flex {...styles.button}>
@@ -91,7 +61,7 @@ export { Accounts };
 
 // Styles
 
-const styles: any = {
+const styles: StyleProps = {
   wrapper: {
     direction: "column",
     paddingX: { base: "0", md: "22vw" },
@@ -127,25 +97,10 @@ const styles: any = {
     paddingLeft: { base: "1em", md: "2vw" },
     height: "100%",
   },
-  info: {
-    direction: "column",
-    color: "gray.800",
-  },
   username: {
     textAlign: "left",
     fontWeight: "bold",
     color: "gray.700",
-  },
-  meta: {
-    display: "flex",
-    alignItems: "center",
-    fontWeight: "normal",
-    paddingTop: { base: "1", md: "1vh" },
-  },
-  circle: {
-    size: "0.5em",
-    background: "red.400",
-    marginRight: "0.5em",
   },
   icon: {
     color: "green.400",

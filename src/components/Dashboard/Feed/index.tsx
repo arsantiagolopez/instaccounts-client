@@ -1,12 +1,13 @@
 import { Flex } from "@chakra-ui/react";
 import React from "react";
-import { AccountDocument } from "../../../utils/types";
+import { InstagramEntity } from "../../../entities";
+import { StyleProps } from "../../../types";
+import { WaitingAuthorizationScreen } from "../../Screens";
 import { NoAccountsScreen } from "../../Screens/NoAccountsScreen";
-import { WaitingAuthorizationScreen } from "../../Screens/WaitingAuthorizationScreen";
 
 interface Props {
-  accounts: AccountDocument[] | undefined;
-  active: AccountDocument | null;
+  accounts: InstagramEntity[] | undefined;
+  active: InstagramEntity | null;
 }
 
 const Feed: React.FC<Props> = ({ accounts, active }) => {
@@ -29,8 +30,9 @@ export { Feed };
 
 // Styles
 
-const styles: any = {
+const styles: StyleProps = {
   wrapper: {
+    justify: "center",
     width: "100%",
     minHeight: {
       base: "calc(100vh - 3em - 50vh)",
