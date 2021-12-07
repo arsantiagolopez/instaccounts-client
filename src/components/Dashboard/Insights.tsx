@@ -64,7 +64,7 @@ const styles: StyleProps = {
     direction: "column",
     paddingLeft: "1vw",
     justify: "center",
-    maxWidth: "60%",
+    maxWidth: "70%",
   },
   username: {
     fontWeight: "bold",

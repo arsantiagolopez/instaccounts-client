@@ -19,8 +19,9 @@ const TestPage: React.FC<Props> = () => {
       console.log("*** data:", data);
     }
   };
+
   return (
-    <Flex>
+    <Flex direction="column">
       <Button onClick={handleClick}>Test</Button>
     </Flex>
   );

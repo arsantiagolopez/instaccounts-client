@@ -10,7 +10,7 @@ import { SlideInBottomDrawer } from "../SlideInBottomDrawer";
 
 interface Props {
   children: JSX.Element;
-  accounts: InstagramEntity[] | undefined;
+  accounts?: InstagramEntity[];
   mutate: KeyedMutator<InstagramEntity[]>;
 }
 

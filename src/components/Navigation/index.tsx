@@ -11,7 +11,7 @@ import { Logo } from "../Logo";
 import { ProfileAvatar } from "../ProfileAvatar";
 
 interface Props {
-  user: object | undefined;
+  user?: object;
 }
 
 const Navigation: React.FC<Props> = ({ user }) => {

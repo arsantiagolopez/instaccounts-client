@@ -11,8 +11,8 @@ import { IoCloseSharp } from "react-icons/io5";
 interface Props {
   status: string;
   title: string;
-  position?: ToastPositionWithLogical | undefined;
-  duration?: number | undefined;
+  position?: ToastPositionWithLogical;
+  duration?: number;
 }
 
 const showToast: React.FC<Props> = ({

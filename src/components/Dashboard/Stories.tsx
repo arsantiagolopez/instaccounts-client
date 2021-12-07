@@ -15,7 +15,7 @@ import { StyleProps } from "../../types";
 import { AddAccountDrawer } from "../AddAccountDrawer";
 
 interface Props {
-  accounts: InstagramEntity[] | undefined;
+  accounts?: InstagramEntity[];
   active: InstagramEntity | null;
   mutate: KeyedMutator<InstagramEntity[]>;
 }

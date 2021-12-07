@@ -1,5 +1,4 @@
 import {
-  AspectRatio,
   Avatar,
   Flex,
   Heading,
@@ -9,17 +8,16 @@ import {
   ModalCloseButton,
   ModalContent,
   ModalOverlay,
-  Skeleton,
   Text,
 } from "@chakra-ui/react";
 import moment from "moment";
-import Image from "next/image";
 import React from "react";
 import { TiHeartFullOutline } from "react-icons/ti";
 import { VscChevronLeft } from "react-icons/vsc";
 import { PostEntity } from "../../entities";
 import { StyleProps } from "../../types";
 import { useAccounts } from "../../utils/useAccounts";
+import { PostImage } from "../PostImage";
 
 interface Props {
   post: PostEntity;
@@ -28,13 +26,24 @@ interface Props {
 }
 
 const PostModal: React.FC<Props> = ({ post, isOpen, onClose }) => {
-  const { id, image, username, location, likes, comments, timestamp, caption } =
-    post || {};
+  const {
+    id,
+    image,
+    height,
+    width,
+    username,
+    location,
+    likes,
+    comments,
+    date,
+    caption,
+  } = post || {};
 
   const { active } = useAccounts();
 
-  const date = moment.unix(parseInt(timestamp));
-  const formatedDate = date.format("MMMM D");
+  const dimensions = width / height;
+
+  const formatedDate = moment(date).format("MMMM D");
   const weeksFromNow = moment().diff(date, "weeks");
   const daysSincePost = moment().diff(date, "days");
   const fromNow =
@@ -59,19 +68,9 @@ const PostModal: React.FC<Props> = ({ post, isOpen, onClose }) => {
             </Flex>
           </Flex>
 
-          <AspectRatio {...styles.aspect}>
-            <>
-              <Skeleton {...styles.skeleton} />
-              <Image
-                src={image}
-                alt={id}
-                layout="fill"
-                objectFit="cover"
-                quality={100}
-                priority={true}
-              />
-            </>
-          </AspectRatio>
+          <Flex {...styles.image}>
+            <PostImage post={post} ratio={{ base: dimensions, md: 1 }} />
+          </Flex>
 
           <Flex {...styles.meta}>
             <Flex {...styles.profileBar} {...styles.desktopOnly}>
@@ -84,9 +83,13 @@ const PostModal: React.FC<Props> = ({ post, isOpen, onClose }) => {
 
             <Flex {...styles.comments}>
               <Flex {...styles.caption}>
-                <Avatar src={active?.image} {...styles.captionAvatar} />
+                <Avatar
+                  src={active?.image}
+                  {...styles.captionAvatar}
+                  {...styles.desktopOnly}
+                />
                 <Flex {...styles.comment}>
-                  <Text {...styles.text} marginLeft="1em">
+                  <Text {...styles.text}>
                     <b>{username}</b> {caption}
                   </Text>
                   <Text {...styles.fromNow}>{fromNow}</Text>
@@ -124,7 +127,7 @@ const styles: StyleProps = {
   content: {
     borderRadius: "0",
     height: { base: "100vh", md: "80vh" },
-    marginX: { base: "0", md: "15vh" },
+    marginX: { base: "0", md: "10vw" },
     overflow: "hidden",
   },
   body: {
@@ -190,13 +193,8 @@ const styles: StyleProps = {
   location: {
     fontSize: "9pt",
   },
-  aspect: {
+  image: {
     flex: 6,
-    ratio: 1,
-  },
-  skeleton: {
-    width: "100%",
-    height: "100%",
   },
   comments: {
     order: { base: 2, md: 1 },
@@ -218,16 +216,16 @@ const styles: StyleProps = {
   },
   comment: {
     direction: "column",
+    paddingX: { base: "0", md: "1em" },
   },
   fromNow: {
     fontSize: "9pt",
     color: "gray.500",
     paddingY: "1em",
-    paddingX: { base: "1em", md: "1.25em" },
   },
   allComments: {
     fontSize: { base: "10pt", md: "9pt" },
-    paddingLeft: { base: "0", md: "3.5em" },
+    paddingLeft: { base: "0", md: "3.75em" },
     color: "gray.500",
   },
   likes: {
@@ -247,7 +245,7 @@ const styles: StyleProps = {
     fontSize: "8pt",
     color: "gray.500",
     paddingY: "1em",
-    marginBottom: { base: "0", md: "7em" },
-    paddingX: { base: "1em", md: "2em" },
+    marginBottom: { base: "1em", md: "7em" },
+    paddingX: { base: "1.5em", md: "2em" },
   },
 };

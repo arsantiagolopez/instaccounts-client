@@ -6,7 +6,7 @@ import { WaitingAuthorizationScreen } from "../../Screens";
 import { NoAccountsScreen } from "../../Screens/NoAccountsScreen";
 
 interface Props {
-  accounts: InstagramEntity[] | undefined;
+  accounts?: InstagramEntity[];
   active: InstagramEntity | null;
 }
 

@@ -30,8 +30,8 @@ export class PostEntity {
   @Column({ type: "int", nullable: false })
   likes!: number;
 
-  @Column({ type: "varchar", nullable: false })
-  timestamp!: string;
+  @Column({ type: "datetime", nullable: false })
+  date!: Date;
 
   @Column({ type: "boolean", nullable: false, default: false })
   isCarousel!: boolean;

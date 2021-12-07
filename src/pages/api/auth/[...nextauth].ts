@@ -8,8 +8,8 @@ import * as entities from "../../../entities";
 import { connection } from "../../../utils/database";
 
 interface ServerAndFrom {
-  server: string | undefined;
-  from: string | undefined;
+  server?: string;
+  from?: string;
 }
 
 // Email provider server & from fields

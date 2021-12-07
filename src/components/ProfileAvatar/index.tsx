@@ -8,7 +8,7 @@ import { StyleProps } from "../../types";
 import { useAccounts } from "../../utils/useAccounts";
 
 interface Props {
-  user: object | undefined;
+  user?: object;
 }
 
 const ProfileAvatar: React.FC<Props> = () => {

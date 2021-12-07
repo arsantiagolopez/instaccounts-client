@@ -5,7 +5,7 @@ import { Navigation } from "../Navigation";
 
 interface Props {
   children: JSX.Element;
-  user: object | undefined;
+  user?: object;
 }
 
 const Layout: React.FC<Props> = ({ children, user }) => {
