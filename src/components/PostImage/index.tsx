@@ -6,8 +6,8 @@ import { StyleProps } from "../../types";
 import { Carousel } from "./Carousel";
 
 interface Props {
-  post: PostEntity;
-  ratio?: number | { [key: string]: number };
+  post: Partial<PostEntity>;
+  ratio?: number | Record<string, number>;
 }
 
 interface CarouselProps {
@@ -18,7 +18,7 @@ interface CarouselProps {
 const PostImage: React.FC<Props> = ({ post, ratio }) => {
   const { image, isCarousel, carouselImages } = post;
 
-  const carouselProps: CarouselProps = { image, carouselImages };
+  const carouselProps: CarouselProps = { image: image!, carouselImages };
 
   return (
     <AspectRatio ratio={ratio ?? 1} {...styles.aspect}>
@@ -28,7 +28,7 @@ const PostImage: React.FC<Props> = ({ post, ratio }) => {
           <Carousel {...carouselProps} />
         ) : (
           <Image
-            src={image}
+            src={image!}
             layout="fill"
             objectFit="cover"
             quality={100}

@@ -20,28 +20,18 @@ import { useAccounts } from "../../utils/useAccounts";
 import { PostImage } from "../PostImage";
 
 interface Props {
-  post: PostEntity;
+  post: Partial<PostEntity>;
   isOpen: boolean;
   onClose: () => void;
 }
 
 const PostModal: React.FC<Props> = ({ post, isOpen, onClose }) => {
-  const {
-    id,
-    image,
-    height,
-    width,
-    username,
-    location,
-    likes,
-    comments,
-    date,
-    caption,
-  } = post || {};
+  const { height, width, username, location, likes, comments, date, caption } =
+    post || {};
 
   const { active } = useAccounts();
 
-  const dimensions = width / height;
+  const dimensions = width! / height!;
 
   const formatedDate = moment(date).format("MMMM D");
   const weeksFromNow = moment().diff(date, "weeks");

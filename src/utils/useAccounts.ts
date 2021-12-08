@@ -1,8 +1,14 @@
 import { useEffect, useState } from "react";
-import useSWR, { SWRResponse } from "swr";
+import useSWR, { KeyedMutator, SWRResponse } from "swr";
 import { InstagramEntity } from "../entities";
 
-const useAccounts = () => {
+interface UseAccounts {
+  accounts: InstagramEntity[] | undefined;
+  active: InstagramEntity | null;
+  mutate: KeyedMutator<InstagramEntity[]>;
+}
+
+const useAccounts = (): UseAccounts => {
   const [active, setActive] = useState<InstagramEntity | null>(null);
   const { data: accounts, mutate }: SWRResponse<InstagramEntity[], Error> =
     useSWR(`${process.env.NEXT_PUBLIC_API_URL}/instagrams`);

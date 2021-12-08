@@ -5,7 +5,7 @@ import { StyleProps } from "../../types";
 
 interface Props {
   active: InstagramEntity | null;
-  instagramFiles: { [key: string]: string[] };
+  instagramFiles: Record<string, string[]>;
 }
 
 const Info: React.FC<Props> = ({ active, instagramFiles }) => {

@@ -1,24 +1,55 @@
 import { Flex } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import useSWR from "swr";
 import { InstagramEntity } from "../../entities/InstagramEntity";
 import { PostEntity } from "../../entities/PostEntity";
 import { StyleProps } from "../../types";
 import { Post } from "../Post";
 
-interface Props {
-  active: InstagramEntity | null;
+interface PostWithIsPreview extends Partial<PostEntity> {
+  isPreview?: boolean;
 }
 
-const Feed: React.FC<Props> = ({ active }) => {
+interface Props {
+  active: InstagramEntity | null;
+  previews: PostWithIsPreview[];
+}
+
+const Feed: React.FC<Props> = ({ active, previews }) => {
+  const [posts, setPosts] = useState<PostWithIsPreview[]>([]);
+
   const { username } = active || {};
-  const { data: posts } = useSWR(
+
+  const { data } = useSWR(
     username && `${process.env.NEXT_PUBLIC_API_URL}/posts/${username}`
   );
 
+  // Merge previews & real posts
+  useEffect(() => {
+    previews.forEach((preview) => {
+      const previewExists = posts.find(({ id }) => id === preview.id);
+      if (!previewExists) {
+        setPosts([preview, ...posts]);
+      }
+    });
+  }, [previews]);
+
+  // Reset posts on action reset
+  useEffect(() => {
+    if (!previews.length) {
+      const nonPreviewPosts = posts.filter(({ isPreview }) => !isPreview);
+      setPosts(nonPreviewPosts);
+    }
+  }, [previews]);
+
+  // Update posts with fetch
+  useEffect(() => {
+    if (data) setPosts(data);
+  }, [data]);
+
   return (
     <Flex {...styles.wrapper}>
-      {posts?.map((post: PostEntity) => (
+      {posts?.map((post: Partial<PostEntity>) => (
         <Post key={post.id} post={post} />
       ))}
     </Flex>

@@ -14,8 +14,12 @@ import { PostEntity } from "../../entities";
 import { StyleProps } from "../../types";
 import { PostModal } from "./PostModal";
 
+interface PostWithIsPreview extends Partial<PostEntity> {
+  isPreview?: boolean;
+}
+
 interface Props {
-  post: PostEntity;
+  post: PostWithIsPreview;
 }
 
 const Post: React.FC<Props> = ({ post }) => {
@@ -24,7 +28,7 @@ const Post: React.FC<Props> = ({ post }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const wrapperRef: React.MutableRefObject<undefined> = useRef();
 
-  const { id, image, likes, comments } = post || {};
+  const { id, image, likes, comments, isPreview } = post || {};
 
   // Set item to hovered
   const handleItemHover = (id: boolean): void => setHovered(id);
@@ -44,14 +48,14 @@ const Post: React.FC<Props> = ({ post }) => {
       ref={wrapperRef}
       onMouseEnter={() => handleItemHover(true)}
       onMouseOut={clearHovered}
-      onClick={onOpen}
+      onClick={!isPreview ? onOpen : undefined}
       {...styles.wrapper}
     >
       <AspectRatio {...styles.aspect}>
         <>
           <Skeleton {...styles.skeleton} />
           <Image
-            src={image}
+            src={image!}
             alt={id}
             layout="fill"
             objectFit="cover"
