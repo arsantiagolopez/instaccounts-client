@@ -14,30 +14,37 @@ import moment from "moment";
 import React from "react";
 import { TiHeartFullOutline } from "react-icons/ti";
 import { VscChevronLeft } from "react-icons/vsc";
-import { PostEntity } from "../../entities";
-import { StyleProps } from "../../types";
+import { Post, StyleProps } from "../../types";
 import { useAccounts } from "../../utils/useAccounts";
 import { PostImage } from "../PostImage";
 
 interface Props {
-  post: Partial<PostEntity>;
+  post: Partial<Post>;
   isOpen: boolean;
   onClose: () => void;
 }
 
 const PostModal: React.FC<Props> = ({ post, isOpen, onClose }) => {
-  const { height, width, username, location, likes, comments, date, caption } =
-    post || {};
+  const {
+    height,
+    width,
+    username,
+    location,
+    likes,
+    comments,
+    timestamp,
+    caption,
+  } = post || {};
 
   const { active } = useAccounts();
 
   const dimensions = width! / height!;
 
-  const formatedDate = moment(date).format("MMMM D");
-  const weeksFromNow = moment().diff(date, "weeks");
-  const daysSincePost = moment().diff(date, "days");
+  const formatedDate = moment(timestamp).format("MMMM D");
+  const weeksFromNow = moment().diff(timestamp, "weeks");
+  const daysSincePost = moment().diff(timestamp, "days");
   const fromNow =
-    daysSincePost > 7 ? `${weeksFromNow}w` : moment(date).fromNow();
+    daysSincePost > 7 ? `${weeksFromNow}w` : moment(timestamp).fromNow();
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} {...styles.wrapper}>

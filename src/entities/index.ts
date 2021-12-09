@@ -6,8 +6,6 @@ import {
   PrimaryGeneratedColumn,
   ValueTransformer,
 } from "typeorm";
-import { InstagramEntity } from "./InstagramEntity";
-import { PostEntity } from "./PostEntity";
 
 const transformer: Record<"date" | "bigint", ValueTransformer> = {
   date: {
@@ -21,7 +19,7 @@ const transformer: Record<"date" | "bigint", ValueTransformer> = {
 };
 
 @Entity({ name: "users" })
-class UserEntity {
+export class UserEntity {
   @PrimaryGeneratedColumn("uuid")
   id!: string;
 
@@ -45,7 +43,7 @@ class UserEntity {
 }
 
 @Entity({ name: "accounts" })
-class AccountEntity {
+export class AccountEntity {
   @PrimaryGeneratedColumn("uuid")
   id!: string;
 
@@ -99,7 +97,7 @@ class AccountEntity {
 }
 
 @Entity({ name: "sessions" })
-class SessionEntity {
+export class SessionEntity {
   @PrimaryGeneratedColumn("uuid")
   id!: string;
 
@@ -117,7 +115,7 @@ class SessionEntity {
 }
 
 @Entity({ name: "verification_tokens" })
-class VerificationTokenEntity {
+export class VerificationTokenEntity {
   @PrimaryGeneratedColumn("uuid")
   id!: string;
 
@@ -130,12 +128,3 @@ class VerificationTokenEntity {
   @Column({ type: "varchar", transformer: transformer.date })
   expires!: string;
 }
-
-export {
-  UserEntity,
-  AccountEntity,
-  SessionEntity,
-  VerificationTokenEntity,
-  InstagramEntity,
-  PostEntity,
-};

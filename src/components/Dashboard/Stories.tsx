@@ -6,18 +6,18 @@ import {
   SkeletonCircle,
   Text,
 } from "@chakra-ui/react";
+import { AxiosResponse } from "axios";
 import React, { useEffect, useState } from "react";
 import { IoAddSharp } from "react-icons/io5";
 import { KeyedMutator } from "swr";
 import axios from "../../axios";
-import { InstagramEntity } from "../../entities";
-import { StyleProps } from "../../types";
+import { Instagram, StyleProps } from "../../types";
 import { AddAccountDrawer } from "../AddAccountDrawer";
 
 interface Props {
-  accounts?: InstagramEntity[];
-  active: InstagramEntity | null;
-  mutate: KeyedMutator<InstagramEntity[]>;
+  accounts?: Instagram[];
+  active?: Instagram;
+  mutate: KeyedMutator<Instagram[]>;
 }
 
 const Stories: React.FC<Props> = ({ accounts, active, mutate }) => {
@@ -25,7 +25,7 @@ const Stories: React.FC<Props> = ({ accounts, active, mutate }) => {
 
   // Update selected account's lastActive field to newest date
   const handleSelect = async (id: string): Promise<void> => {
-    const { data } = await axios.put(
+    const { data }: AxiosResponse = await axios.put(
       `${process.env.NEXT_PUBLIC_API_URL}/instagrams/active/${id}`
     );
     setActiveId(data?.id);

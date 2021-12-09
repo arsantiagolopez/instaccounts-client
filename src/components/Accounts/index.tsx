@@ -18,7 +18,7 @@ const Accounts: React.FC<Props> = () => {
   }, [active]);
 
   const addAccountDrawerProps = { accounts, mutate };
-  const cardProps = { activeId, setActiveId };
+  const cardProps = { activeId, setActiveId, accounts, mutate };
 
   return (
     <Flex {...styles.wrapper}>

@@ -7,11 +7,10 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import Image from "next/image";
-import React, { MouseEvent, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { FaComment } from "react-icons/fa";
 import { IoHeartSharp } from "react-icons/io5";
-import { PostEntity } from "../../entities";
-import { StyleProps } from "../../types";
+import { Post as PostEntity, StyleProps } from "../../types";
 import { PostModal } from "./PostModal";
 
 interface PostWithIsPreview extends Partial<PostEntity> {
@@ -21,6 +20,10 @@ interface PostWithIsPreview extends Partial<PostEntity> {
 interface Props {
   post: PostWithIsPreview;
 }
+
+type HTMLElementEvent<T extends HTMLElement> = Event & {
+  relatedTarget: T;
+};
 
 const Post: React.FC<Props> = ({ post }) => {
   const [hovered, setHovered] = useState<boolean>(false);
@@ -33,8 +36,8 @@ const Post: React.FC<Props> = ({ post }) => {
   // Set item to hovered
   const handleItemHover = (id: boolean): void => setHovered(id);
 
-  // Prevent ref's children form clearing hovered state
-  const clearHovered = (event: MouseEvent<HTMLButtonElement>): void => {
+  // Prevent ref's children from clearing hovered state
+  const clearHovered = (event: HTMLElementEvent<HTMLButtonElement>): void => {
     const { relatedTarget: hoveredNode } = event;
     // @ts-ignore
     const hoveredNodeInsideRef = wrapperRef?.current?.contains(hoveredNode);

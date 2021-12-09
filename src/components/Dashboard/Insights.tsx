@@ -1,10 +1,9 @@
 import { Avatar, Flex, SkeletonCircle, Text } from "@chakra-ui/react";
 import React from "react";
-import { InstagramEntity } from "../../entities";
-import { StyleProps } from "../../types";
+import { Instagram, StyleProps } from "../../types";
 
 interface Props {
-  active: InstagramEntity | null;
+  active: Instagram | null;
 }
 
 const Insights: React.FC<Props> = ({ active }) => {

@@ -1,18 +1,15 @@
 import { useEffect, useState } from "react";
 import { v4 } from "uuid";
-import { PostEntity } from "../entities";
-
-// previewImages: string[];
-//   setPreviewImages:;
+import { Post } from "../types";
 
 interface UseAccounts {
-  previews: Partial<PostEntity>[];
+  previews: Partial<Post>[];
   images: string[];
   setImages: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 const usePreviewPosts = (): UseAccounts => {
-  const [previews, setPreviews] = useState<Partial<PostEntity>[]>([]);
+  const [previews, setPreviews] = useState<Partial<Post>[]>([]);
   const [images, setImages] = useState<string[]>([]);
 
   // Create partial posts with required data for display

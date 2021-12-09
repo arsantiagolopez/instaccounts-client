@@ -1,13 +1,12 @@
 import { Flex } from "@chakra-ui/react";
 import React from "react";
-import { InstagramEntity } from "../../../entities";
-import { StyleProps } from "../../../types";
+import { Instagram, StyleProps } from "../../../types";
 import { WaitingAuthorizationScreen } from "../../Screens";
 import { NoAccountsScreen } from "../../Screens/NoAccountsScreen";
 
 interface Props {
-  accounts?: InstagramEntity[];
-  active: InstagramEntity | null;
+  accounts?: Instagram[];
+  active?: Instagram;
 }
 
 const Feed: React.FC<Props> = ({ accounts, active }) => {

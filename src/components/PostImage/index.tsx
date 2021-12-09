@@ -1,12 +1,11 @@
 import { AspectRatio, Skeleton } from "@chakra-ui/react";
 import Image from "next/image";
 import React from "react";
-import { PostEntity } from "../../entities";
-import { StyleProps } from "../../types";
+import { Post, StyleProps } from "../../types";
 import { Carousel } from "./Carousel";
 
 interface Props {
-  post: Partial<PostEntity>;
+  post: Partial<Post>;
   ratio?: number | Record<string, number>;
 }
 

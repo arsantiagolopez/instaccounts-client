@@ -1,10 +1,10 @@
 import { Avatar, Flex, SkeletonCircle, Text } from "@chakra-ui/react";
 import React from "react";
-import { InstagramEntity } from "../../entities";
-import { StyleProps } from "../../types";
+import { Instagram, StyleProps } from "../../types";
+import { ProfileSkeleton } from "../Skeletons";
 
 interface Props {
-  active: InstagramEntity | null;
+  active?: Instagram;
   instagramFiles: Record<string, string[]>;
 }
 
@@ -12,6 +12,11 @@ const Info: React.FC<Props> = ({ active, instagramFiles }) => {
   const { image, username, name, bio, followers, following } = active || {};
 
   const posts = instagramFiles[username!]?.length;
+
+  // Show loading skeleton
+  if (!active) {
+    return <ProfileSkeleton />;
+  }
 
   return (
     <Flex {...styles.wrapper}>

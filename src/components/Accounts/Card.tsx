@@ -6,22 +6,39 @@ import {
   Flex,
   Icon,
   SkeletonCircle,
+  Spinner,
   Text,
 } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import { AxiosResponse } from "axios";
+import React, { useEffect, useRef, useState } from "react";
 import { IoCheckmarkCircleSharp } from "react-icons/io5";
-// import testImage from "../../../../server/instaloader/asantilopez/2021-10-27_18-36-36_UTC_profile_pic.jpg";
+import { MdCancel } from "react-icons/md";
+import { KeyedMutator } from "swr";
 import axios from "../../axios";
-import { InstagramEntity } from "../../entities";
-import { StyleProps } from "../../types";
+import { Instagram, StyleProps } from "../../types";
+import { DeleteAccount } from "../DeleteAccount";
 
 interface Props {
-  account: InstagramEntity;
+  account: Instagram;
   activeId: string | null;
   setActiveId: React.Dispatch<React.SetStateAction<string | null>>;
+  accounts?: Instagram[];
+  mutate: KeyedMutator<Instagram[]>;
 }
 
-const Card: React.FC<Props> = ({ account, activeId, setActiveId }) => {
+type HTMLElementEvent<T extends HTMLElement> = Event & {
+  relatedTarget: T;
+};
+
+const Card: React.FC<Props> = ({
+  account,
+  activeId,
+  setActiveId,
+  accounts,
+  mutate,
+}) => {
+  const [isHovered, setIsHovered] = useState<boolean>(false);
+  const [isDeleteAlertOpen, setIsDeleteAlertOpen] = useState<boolean>(false);
   const [status, setStatus] = useState<string | null>(null);
   const {
     id,
@@ -31,16 +48,31 @@ const Card: React.FC<Props> = ({ account, activeId, setActiveId }) => {
     // insights @TODO set up insights
   } = account;
 
+  const wrapperRef: React.MutableRefObject<undefined> = useRef();
+
   let insights: string | null = null;
   // @todo: decide on activity, e.g. "15 new likes, 5 new followers"
   let activity = insights ?? image ? "Account live" : "Loading profile...";
 
   // Update selected account's lastActive field to newest date
   const handleSelect = async (id: string): Promise<void> => {
-    const { data } = await axios.put(
+    const { data }: AxiosResponse = await axios.put(
       `${process.env.NEXT_PUBLIC_API_URL}/instagrams/active/${id}`
     );
     setActiveId(data?.id);
+  };
+
+  // Set item to hovered
+  const handleHover = () => setIsHovered(true);
+
+  // Prevent ref's children from clearing hovered state
+  const handleBlur = (event: HTMLElementEvent<HTMLButtonElement>): void => {
+    const { relatedTarget: hoveredNode } = event;
+    //@ts-ignore
+    const hoveredNodeInsideRef = wrapperRef?.current?.contains(hoveredNode);
+    if (!hoveredNodeInsideRef) {
+      if (!isDeleteAlertOpen) setIsHovered(false);
+    }
   };
 
   useEffect(() => {
@@ -49,8 +81,27 @@ const Card: React.FC<Props> = ({ account, activeId, setActiveId }) => {
     }
   }, [account]);
 
+  // Hide delete on alert cancel
+  useEffect(() => {
+    if (!isDeleteAlertOpen) setIsHovered(false);
+  }, [isDeleteAlertOpen]);
+
+  const deleteAccountProps = {
+    username,
+    accounts,
+    mutate,
+    isDeleteAlertOpen,
+    setIsDeleteAlertOpen,
+  };
+
   return (
-    <Button onClick={() => handleSelect(id)} {...styles.button}>
+    <Button
+      ref={wrapperRef}
+      onClick={() => handleSelect(id)}
+      onMouseEnter={handleHover}
+      onMouseOut={handleBlur}
+      {...styles.button}
+    >
       <AspectRatio {...styles.aspect}>
         {image ? (
           <Avatar src={image} {...styles.image} />
@@ -69,9 +120,22 @@ const Card: React.FC<Props> = ({ account, activeId, setActiveId }) => {
             {isAuthorized ? activity : status}
           </Text>
         </Flex>
-        {activeId === id && (
-          <Icon as={IoCheckmarkCircleSharp} {...styles.icon} />
-        )}
+        <Flex>
+          {activeId === id && isHovered && (
+            <DeleteAccount
+              trigger={
+                <Icon as={MdCancel} {...styles.icon} {...styles.delete} />
+              }
+              {...deleteAccountProps}
+            />
+          )}
+          {activeId === id &&
+            (isAuthorized ? (
+              <Icon as={IoCheckmarkCircleSharp} {...styles.icon} />
+            ) : (
+              <Spinner {...styles.spinner} />
+            ))}
+        </Flex>
       </Flex>
     </Button>
   );
@@ -131,5 +195,15 @@ const styles: StyleProps = {
   icon: {
     color: "green.400",
     fontSize: "18pt",
+  },
+  delete: {
+    color: "red.400",
+    marginRight: "1",
+  },
+  spinner: {
+    color: "gray.800",
+    speed: "1s",
+    size: "md",
+    thickness: "3px",
   },
 };

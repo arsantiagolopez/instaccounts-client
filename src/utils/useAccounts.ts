@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react";
 import useSWR, { KeyedMutator, SWRResponse } from "swr";
-import { InstagramEntity } from "../entities";
+import { Instagram } from "../types";
 
 interface UseAccounts {
-  accounts: InstagramEntity[] | undefined;
-  active: InstagramEntity | null;
-  mutate: KeyedMutator<InstagramEntity[]>;
+  accounts: Instagram[] | undefined;
+  active?: Instagram;
+  mutate: KeyedMutator<Instagram[]>;
 }
 
 const useAccounts = (): UseAccounts => {
-  const [active, setActive] = useState<InstagramEntity | null>(null);
-  const { data: accounts, mutate }: SWRResponse<InstagramEntity[], Error> =
-    useSWR(`${process.env.NEXT_PUBLIC_API_URL}/instagrams`);
+  const [active, setActive] = useState<Instagram | undefined>();
+  const { data: accounts, mutate }: SWRResponse<Instagram[], Error> = useSWR(
+    `${process.env.NEXT_PUBLIC_API_URL}/instagrams`
+  );
 
   // Set active account to the latest active
   useEffect(() => {

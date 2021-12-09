@@ -2,16 +2,15 @@ import { Flex, Input, Text } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useForm, UseFormRegisterReturn } from "react-hook-form";
 import { KeyedMutator } from "swr";
-import { InstagramEntity } from "../../entities";
-import { StyleProps } from "../../types";
+import { Instagram, StyleProps } from "../../types";
 import { handleMutation } from "../../utils/handleMutation";
 import { showToast } from "../../utils/showToast";
 import { SlideInBottomDrawer } from "../SlideInBottomDrawer";
 
 interface Props {
   children: JSX.Element;
-  accounts?: InstagramEntity[];
-  mutate: KeyedMutator<InstagramEntity[]>;
+  accounts?: Instagram[];
+  mutate: KeyedMutator<Instagram[]>;
 }
 
 interface FormData {
@@ -55,9 +54,7 @@ const AddAccountDrawer: React.FC<Props> = ({ children, accounts, mutate }) => {
     }
 
     // Logged in successfully
-    if (data) {
-      mutate([...[accounts], data]);
-    }
+    if (data) mutate([...[accounts], data]);
 
     return success;
   };
@@ -66,13 +63,9 @@ const AddAccountDrawer: React.FC<Props> = ({ children, accounts, mutate }) => {
   const downloadProfile = async (args: FormData): Promise<void> => {
     const { data, error } = await handleMutation("/instagrams/download", args);
 
-    if (error) {
-      showToast({ status: "error", title: error });
-      return;
-    }
-
-    if (data) {
-    }
+    if (error) showToast({ status: "error", title: error });
+    // Data successfully downloaded
+    if (data) mutate([...[accounts], data]);
   };
 
   const onSubmit = async (args: FormData): Promise<void> => {

@@ -1,9 +1,7 @@
 import { Flex } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import useSWR from "swr";
-import { InstagramEntity } from "../../entities/InstagramEntity";
-import { PostEntity } from "../../entities/PostEntity";
-import { StyleProps } from "../../types";
+import { Instagram, Post as PostEntity, StyleProps } from "../../types";
 import { Post } from "../Post";
 
 interface PostWithIsPreview extends Partial<PostEntity> {
@@ -11,7 +9,7 @@ interface PostWithIsPreview extends Partial<PostEntity> {
 }
 
 interface Props {
-  active: InstagramEntity | null;
+  active?: Instagram;
   previews: PostWithIsPreview[];
 }
 
