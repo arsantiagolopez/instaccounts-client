@@ -9,4 +9,11 @@ export interface Action {
   active: boolean;
 }
 
-export type { User, Session, Instagram, Account, Post };
+interface PictureAndPosts {
+  profilePic: string;
+  posts: Post[];
+}
+
+type AccountsWithPosts = Record<string, PictureAndPosts>;
+
+export type { User, Session, Instagram, Account, Post, AccountsWithPosts };

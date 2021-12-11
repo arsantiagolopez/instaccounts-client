@@ -1,18 +1,20 @@
 import { Flex } from "@chakra-ui/react";
 import React from "react";
-import { StyleProps } from "../../types";
+import { AccountsWithPosts, StyleProps } from "../../types";
 import { useAccounts } from "../../utils/useAccounts";
 import { Feed } from "./Feed";
 import { Insights } from "./Insights";
 import { Stories } from "./Stories";
 
-interface Props {}
+interface Props {
+  accountsWithPosts: AccountsWithPosts;
+}
 
-const Dashboard: React.FC<Props> = () => {
+const Dashboard: React.FC<Props> = ({ accountsWithPosts }) => {
   const { accounts, active, mutate } = useAccounts();
 
   const storiesProps = { accounts, active, mutate };
-  const feedProps = { accounts, active };
+  const feedProps = { accounts, active, accountsWithPosts };
   const insightsProps = { active };
 
   return (
@@ -37,7 +39,7 @@ export { Dashboard };
 const styles: StyleProps = {
   wrapper: {
     direction: { base: "column", md: "row" },
-    paddingX: { base: "0", md: "22vw" },
+    paddingX: { base: "0", md: "25vw" },
     minHeight: "calc(100vh - 3em)",
   },
   left: {

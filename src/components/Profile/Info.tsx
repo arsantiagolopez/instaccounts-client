@@ -76,7 +76,7 @@ const styles: StyleProps = {
     justify: "flex-start",
     align: "flex-start",
     minHeight: { base: "auto", md: "30vh" },
-    paddingY: { base: "1em", md: "5vh" },
+    paddingY: { base: "1em", md: "4vh" },
     overflow: "hidden",
   },
   username: {

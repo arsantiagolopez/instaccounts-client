@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import React from "react";
 import { BiAt } from "react-icons/bi";
 import { BsHouseDoor, BsHouseDoorFill } from "react-icons/bs";
+import { DiAppstore } from "react-icons/di";
 import { IoAt, IoTrendingUpSharp } from "react-icons/io5";
 import { MdTrendingUp } from "react-icons/md";
 import { StyleProps } from "../../types";
@@ -40,6 +41,13 @@ const Navigation: React.FC<Props> = ({ user }) => {
             {...styles.icon}
           />
         </Link>
+        <Link href="/apps">
+          <IconButton
+            aria-label="Find Apps"
+            icon={pathname.includes("/apps") ? <DiAppstore /> : <DiAppstore />}
+            {...styles.icon}
+          />
+        </Link>
         <Link href="/bot">
           <IconButton
             aria-label="InstaPy Bot"
@@ -53,6 +61,7 @@ const Navigation: React.FC<Props> = ({ user }) => {
             {...styles.icon}
           />
         </Link>
+
         <ProfileAvatar {...profileAvatarProps} />
       </Flex>
     </Flex>
@@ -75,7 +84,7 @@ const styles: StyleProps = {
     height: "3em",
     borderBottom: "1px solid",
     borderBottomColor: "gray.200",
-    paddingX: { base: "1em", md: "22vw" },
+    paddingX: { base: "1em", md: "25vw" },
     background: "white",
   },
   logoWrapper: {
@@ -90,7 +99,7 @@ const styles: StyleProps = {
     fontSize: "18pt",
     color: "gray.700",
     background: "transparent",
-    marginLeft: "0.5em",
+    marginLeft: { base: "0.25em", md: "0.5em" },
     _hover: {
       color: "black",
     },

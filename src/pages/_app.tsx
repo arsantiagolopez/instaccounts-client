@@ -1,5 +1,5 @@
 import { ChakraProvider } from "@chakra-ui/react";
-import { NextComponentType, NextPageContext } from "next";
+import { NextComponentType, NextPage, NextPageContext } from "next";
 import { SessionProvider } from "next-auth/react";
 import type { AppProps as NextAppProps } from "next/app";
 import "reflect-metadata";
@@ -18,7 +18,7 @@ type AppProps<P = any> = {
   Component: NextComponentType<NextPageContext, any, {}> & IsProtectedProp;
 } & Omit<NextAppProps<P>, "Component">;
 
-const MyApp: React.FC<AppProps> = ({
+const MyApp: NextPage<AppProps> = ({
   Component,
   pageProps: { session, ...pageProps },
 }) => (

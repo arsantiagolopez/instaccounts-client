@@ -46,10 +46,10 @@ export { Profile };
 const styles: StyleProps = {
   wrapper: {
     direction: "column",
-    paddingX: { base: "0", md: "22vw" },
+    paddingX: { base: "0", md: "25vw" },
     minHeight: "calc(100vh - 3em)",
   },
   divider: {
-    marginY: { base: "3vh", md: "5vh" },
+    marginY: { base: "3vh", md: "4vh" },
   },
 };

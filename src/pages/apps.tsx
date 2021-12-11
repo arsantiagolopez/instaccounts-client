@@ -1,29 +1,30 @@
-import { NextPage } from "next";
+import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import Head from "next/head";
 import React from "react";
-import { Bot } from "../components/Bot";
+import { AppStore } from "../components/AppStore";
 import { Layout } from "../components/Layout";
 
 interface Props {}
 
-const BotPage: NextPage<Props> = () => {
+const AppsPage: NextPage<Props> = () => {
   const { data } = useSession();
   const { user } = data || {};
 
   const layoutProps = { user };
+  const appStoreProps = {};
 
   return (
     <>
       <Head>
-        <title>Instaccounts - Bot</title>
+        <title>App Store</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout {...layoutProps}>
-        <Bot />
+        <AppStore {...appStoreProps} />
       </Layout>
     </>
   );
 };
 
-export default BotPage;
+export default AppsPage;

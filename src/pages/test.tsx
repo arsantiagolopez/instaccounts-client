@@ -1,10 +1,11 @@
 import { Button, Flex } from "@chakra-ui/react";
+import { NextPage } from "next";
 import React from "react";
 import { handleMutation } from "../utils/handleMutation";
 
 interface Props {}
 
-const TestPage: React.FC<Props> = () => {
+const TestPage: NextPage<Props> = () => {
   const handleClick = async () => {
     let username = "asantilopez";
     const { data, error } = await handleMutation("/instagrams/test", {

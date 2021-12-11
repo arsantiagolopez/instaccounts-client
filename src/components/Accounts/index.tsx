@@ -64,7 +64,7 @@ export { Accounts };
 const styles: StyleProps = {
   wrapper: {
     direction: "column",
-    paddingX: { base: "0", md: "22vw" },
+    paddingX: { base: "0", md: "25vw" },
     minHeight: "calc(100vh - 3em)",
   },
   button: {
