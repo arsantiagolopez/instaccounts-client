@@ -1,5 +1,5 @@
 import { Divider, Flex } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 import { Action, StyleProps } from "../../types";
 import { useAccounts } from "../../utils/useAccounts";
 import { usePreviewPosts } from "../../utils/usePreviewPosts";
@@ -12,7 +12,7 @@ interface Props {
   instagramFiles: Record<string, string[]>;
 }
 
-const Profile: React.FC<Props> = ({ instagramFiles }) => {
+const Profile: FC<Props> = ({ instagramFiles }) => {
   const [actions, setActions] = useState<Action[]>([
     { name: "DEFAULT", active: true },
     { name: "PREVIEW", active: false },

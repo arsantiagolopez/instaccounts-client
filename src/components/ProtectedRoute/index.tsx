@@ -1,12 +1,12 @@
 import { signIn, useSession } from "next-auth/react";
-import React, { useEffect } from "react";
+import React, { FC, useEffect } from "react";
 import { LoadingScreen } from "../Screens";
 
 interface Props {
   children: any;
 }
 
-const ProtectedRoute: React.FC<Props> = ({ children }) => {
+const ProtectedRoute: FC<Props> = ({ children }) => {
   const { data: session, status } = useSession();
   const loading = status === "loading";
 

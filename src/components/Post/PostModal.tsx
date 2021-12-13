@@ -11,7 +11,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import moment from "moment";
-import React from "react";
+import React, { FC } from "react";
 import { TiHeartFullOutline } from "react-icons/ti";
 import { VscChevronLeft } from "react-icons/vsc";
 import { Post, StyleProps } from "../../types";
@@ -24,7 +24,7 @@ interface Props {
   onClose: () => void;
 }
 
-const PostModal: React.FC<Props> = ({ post, isOpen, onClose }) => {
+const PostModal: FC<Props> = ({ post, isOpen, onClose }) => {
   const {
     height,
     width,

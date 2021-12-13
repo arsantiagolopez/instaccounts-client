@@ -2,7 +2,7 @@ import { Avatar, Button, Flex, Icon, SkeletonCircle } from "@chakra-ui/react";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useRef, useState } from "react";
+import React, { FC, useRef, useState } from "react";
 import { IoPersonCircleOutline, IoSettingsSharp } from "react-icons/io5";
 import { StyleProps } from "../../types";
 import { useAccounts } from "../../utils/useAccounts";
@@ -11,7 +11,7 @@ interface Props {
   user?: object;
 }
 
-const ProfileAvatar: React.FC<Props> = () => {
+const ProfileAvatar: FC<Props> = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const { active } = useAccounts();
   const { image } = active || {};

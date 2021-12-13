@@ -1,10 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { FC } from "react";
 
 interface Props {}
 
-const Logo: React.FC<Props> = () => (
+const Logo: FC<Props> = () => (
   <Link href="/">
     <a>
       <Image

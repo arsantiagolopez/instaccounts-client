@@ -1,5 +1,5 @@
 import { Circle, Flex, Icon, Text } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { IoAddSharp } from "react-icons/io5";
 import { StyleProps } from "../../types";
 import { useAccounts } from "../../utils/useAccounts";
@@ -9,7 +9,7 @@ import { Card } from "./Card";
 
 interface Props {}
 
-const Accounts: React.FC<Props> = () => {
+const Accounts: FC<Props> = () => {
   const [activeId, setActiveId] = useState<string | null>(null);
   const { accounts, active, mutate } = useAccounts();
 

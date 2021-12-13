@@ -7,7 +7,7 @@ import {
   DrawerOverlay,
   useDisclosure,
 } from "@chakra-ui/react";
-import React, { useEffect } from "react";
+import React, { FC, useEffect } from "react";
 import { StyleProps } from "../../types";
 
 interface Props {
@@ -25,7 +25,7 @@ interface Props {
   onSuccess: boolean;
 }
 
-const SlideInBottomDrawer: React.FC<Props> = ({
+const SlideInBottomDrawer: FC<Props> = ({
   trigger,
   header,
   submit,

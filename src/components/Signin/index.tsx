@@ -1,5 +1,5 @@
 import { Flex } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 import { StyleProps } from "../../types";
 import { Logo } from "../Logo";
 import { EmailSent } from "./EmailSent";
@@ -7,7 +7,7 @@ import { Form } from "./Form";
 
 interface Props {}
 
-const Signin: React.FC<Props> = () => {
+const Signin: FC<Props> = () => {
   const [isEmailSent, setIsEmailSent] = useState<boolean>(false);
   const [email, setEmail] = useState<string | null>(null);
 

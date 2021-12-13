@@ -1,6 +1,6 @@
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { Flex, Input, Text } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 import { useForm, UseFormRegisterReturn } from "react-hook-form";
 import { StyleProps } from "../../types";
 import { SlideInBottomDrawer } from "../SlideInBottomDrawer";
@@ -13,7 +13,7 @@ interface FormData {
   account: string;
 }
 
-const RequestInvite: React.FC<Props> = () => {
+const RequestInvite: FC<Props> = () => {
   const [onSuccess, setOnSuccess] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 

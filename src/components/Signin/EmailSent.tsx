@@ -1,5 +1,5 @@
 import { Button, Flex, Heading, Icon, Text } from "@chakra-ui/react";
-import React from "react";
+import React, { FC } from "react";
 import FadeIn from "react-fade-in";
 import { SiMinutemailer } from "react-icons/si";
 import { StyleProps } from "../../types";
@@ -9,7 +9,7 @@ interface Props {
   email: string | null;
 }
 
-const EmailSent: React.FC<Props> = ({ setIsEmailSent, email }) => {
+const EmailSent: FC<Props> = ({ setIsEmailSent, email }) => {
   return (
     <Flex {...styles.wrapper}>
       <FadeIn delay={300}>

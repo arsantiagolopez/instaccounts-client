@@ -1,3 +1,4 @@
+import { InsightsSkeleton } from "./InsightsSkeleton";
 import { ProfileSkeleton } from "./ProfileSkeleton";
 
-export { ProfileSkeleton };
+export { ProfileSkeleton, InsightsSkeleton };

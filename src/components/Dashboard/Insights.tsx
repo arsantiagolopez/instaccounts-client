@@ -1,31 +1,24 @@
 import { Avatar, Flex, SkeletonCircle, Text } from "@chakra-ui/react";
 import Link from "next/link";
-import React from "react";
+import React, { FC, useContext } from "react";
+import { AppContext } from "../../context/AppContext";
 import { Instagram, StyleProps } from "../../types";
 import { Footer } from "../Footer";
+import { ManageAppDrawer } from "../ManageAppDrawer";
+import { InsightsSkeleton } from "../Skeletons";
 
 interface Props {
   active?: Instagram;
 }
 
-const Insights: React.FC<Props> = ({ active }) => {
+const Insights: FC<Props> = ({ active }) => {
   const { image, username, name, isAuthorized } = active || {};
 
-  const apps: any = [
-    {
-      image:
-        "https://www.citypng.com/public/uploads/preview/-11590310104ndbzw5figp.png",
-      name: "Instagram Feed",
-      description: "Display all your account's posts.",
-    },
-    {
-      image:
-        "http://cdn.cnn.com/cnnnext/dam/assets/190805130912-spirit-airlines-file.jpg",
-      name: "Post Suggestions",
-      description:
-        "Creates images and suggest time of post and this also a very long line.",
-    },
-  ];
+  const { apps } = useContext(AppContext);
+
+  if (!apps || !username) {
+    return <InsightsSkeleton />;
+  }
 
   return (
     <Flex {...styles.wrapper}>
@@ -62,16 +55,19 @@ const Insights: React.FC<Props> = ({ active }) => {
         </Flex>
 
         <Flex {...styles.items}>
-          {apps.map(({ image, name, description }: any) => (
-            <Flex key={name} {...styles.app}>
-              <Avatar src={image} {...styles.appAvatar} />
-              <Flex {...styles.appMeta}>
-                <Text {...styles.username}>{name}</Text>
-                <Text {...styles.description}>{description}</Text>
+          {apps.map((app, index) => {
+            const { name, description, image } = app;
+            return (
+              <Flex key={name ?? index} {...styles.app}>
+                <Avatar src={image} {...styles.appAvatar} />
+                <Flex {...styles.appMeta}>
+                  <Text {...styles.username}>{name}</Text>
+                  <Text {...styles.description}>{description}</Text>
+                </Flex>
+                <ManageAppDrawer app={app} />
               </Flex>
-              <Text {...styles.action}>Manage</Text>
-            </Flex>
-          ))}
+            );
+          })}
         </Flex>
 
         <Footer />

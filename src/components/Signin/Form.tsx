@@ -1,6 +1,6 @@
 import { Button, Divider, Flex, Input, Text } from "@chakra-ui/react";
 import { signIn } from "next-auth/react";
-import React from "react";
+import React, { FC } from "react";
 import { useForm, UseFormRegisterReturn } from "react-hook-form";
 import { FaGoogle } from "react-icons/fa";
 import { StyleProps } from "../../types";
@@ -15,7 +15,7 @@ interface FormData {
   email: string;
 }
 
-const Form: React.FC<Props> = ({ setIsEmailSent, setEmail }) => {
+const Form: FC<Props> = ({ setIsEmailSent, setEmail }) => {
   const {
     handleSubmit,
     register,

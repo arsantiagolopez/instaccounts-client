@@ -7,7 +7,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import Image from "next/image";
-import React, { useRef, useState } from "react";
+import React, { FC, useRef, useState } from "react";
 import { FaComment } from "react-icons/fa";
 import { IoHeartSharp } from "react-icons/io5";
 import { Post as PostEntity, StyleProps } from "../../types";
@@ -25,7 +25,7 @@ type HTMLElementEvent<T extends HTMLElement> = Event & {
   relatedTarget: T;
 };
 
-const Post: React.FC<Props> = ({ post }) => {
+const Post: FC<Props> = ({ post }) => {
   const [hovered, setHovered] = useState<boolean>(false);
 
   const { isOpen, onOpen, onClose } = useDisclosure();

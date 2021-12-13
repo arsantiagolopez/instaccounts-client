@@ -1,10 +1,9 @@
 import { Box, Flex, IconButton } from "@chakra-ui/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { FC } from "react";
 import { BiAt } from "react-icons/bi";
 import { BsHouseDoor, BsHouseDoorFill } from "react-icons/bs";
-import { DiAppstore } from "react-icons/di";
 import { IoAt, IoTrendingUpSharp } from "react-icons/io5";
 import { MdTrendingUp } from "react-icons/md";
 import { StyleProps } from "../../types";
@@ -15,7 +14,7 @@ interface Props {
   user?: object;
 }
 
-const Navigation: React.FC<Props> = ({ user }) => {
+const Navigation: FC<Props> = ({ user }) => {
   const { pathname } = useRouter();
 
   const profileAvatarProps = { user };
@@ -41,13 +40,13 @@ const Navigation: React.FC<Props> = ({ user }) => {
             {...styles.icon}
           />
         </Link>
-        <Link href="/apps">
+        {/* <Link href="/apps">
           <IconButton
             aria-label="Find Apps"
             icon={pathname.includes("/apps") ? <DiAppstore /> : <DiAppstore />}
             {...styles.icon}
           />
-        </Link>
+        </Link> */}
         <Link href="/bot">
           <IconButton
             aria-label="InstaPy Bot"

@@ -47,3 +47,11 @@ export interface Post {
   instagramId: string;
   instagram: Instagram;
 }
+
+export interface App {
+  id: string;
+  name: string;
+  description: string;
+  image: string;
+  isActive: boolean;
+}

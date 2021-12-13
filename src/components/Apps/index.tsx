@@ -1,22 +1,50 @@
 import { Flex } from "@chakra-ui/react";
 import { getPosts } from "instaccounts-instafeed";
-import React from "react";
+import React, { FC, useContext, useEffect, useState } from "react";
+import { AppContext } from "../../context/AppContext";
 import { AccountsWithPosts, StyleProps } from "../../types";
 
 interface Props {
   accountsWithPosts: AccountsWithPosts;
 }
 
-const Apps: React.FC<Props> = ({ accountsWithPosts }) => {
-  // const sortedPosts = posts.sort(
-  //   (a: PostEntity, b: PostEntity) =>
-  //     (b as any).timestamp - (a as any).timestamp
-  // );
+const Apps: FC<Props> = ({ accountsWithPosts }) => {
+  const [posts, setPosts] = useState<JSX.Element[]>([]);
+  const { apps } = useContext(AppContext);
 
-  const posts = getPosts(accountsWithPosts);
+  // Only show active apps' posts
+  useEffect(() => {
+    let newPosts: JSX.Element[] = [];
+
+    apps?.map((app) => {
+      let { name, isActive } = app;
+      name = name.toLowerCase();
+
+      switch (name) {
+        case "instagram feed":
+          if (isActive) {
+            const instafeedPosts = getPosts(accountsWithPosts);
+            newPosts = [...posts, ...instafeedPosts];
+          }
+          break;
+      }
+    });
+
+    newPosts.sort(
+      (a, b) =>
+        +new Date(b.props.children.props.post.timestamp) -
+        +new Date(a.props.children.props.post.timestamp)
+    );
+
+    setPosts(newPosts);
+  }, [apps]);
 
   return (
-    <Flex {...styles.wrapper}>{posts.map((post: JSX.Element) => post)}</Flex>
+    <Flex {...styles.wrapper}>
+      {posts.map((post: JSX.Element) => (
+        <Flex key={post.props.children.key}>{post}</Flex>
+      ))}
+    </Flex>
   );
 };
 

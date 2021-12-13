@@ -6,6 +6,7 @@ import "reflect-metadata";
 import { SWRConfig } from "swr";
 import axios from "../axios";
 import { ProtectedRoute } from "../components/ProtectedRoute";
+import { AppProvider } from "../context/AppProvider";
 import "../styles/global.css";
 import theme from "../theme";
 
@@ -31,7 +32,9 @@ const MyApp: NextPage<AppProps> = ({
       <ChakraProvider theme={theme}>
         {Component.isProtected ? (
           <ProtectedRoute>
-            <Component {...pageProps} />
+            <AppProvider>
+              <Component {...pageProps} />
+            </AppProvider>
           </ProtectedRoute>
         ) : (
           <Component {...pageProps} />

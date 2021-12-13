@@ -1,8 +1,8 @@
 import { Flex } from "@chakra-ui/react";
-import React from "react";
+import React, { FC } from "react";
 import { AccountsWithPosts, Instagram, StyleProps } from "../../types";
 import { Apps } from "../Apps";
-import { NoAccountsScreen, WaitingAuthorizationScreen } from "../Screens";
+import { NoAccountsScreen } from "../Screens";
 
 interface Props {
   accounts?: Instagram[];
@@ -10,19 +10,11 @@ interface Props {
   accountsWithPosts: AccountsWithPosts;
 }
 
-const Feed: React.FC<Props> = ({ accounts, active, accountsWithPosts }) => {
-  const { isAuthorized } = active || {};
-
+const Feed: FC<Props> = ({ accounts, active, accountsWithPosts }) => {
   const appsProps = { accountsWithPosts };
   return (
     <Flex {...styles.wrapper}>
-      {!accounts?.length ? (
-        <NoAccountsScreen />
-      ) : !isAuthorized ? (
-        <WaitingAuthorizationScreen />
-      ) : (
-        <Apps {...appsProps} />
-      )}
+      {!accounts?.length ? <NoAccountsScreen /> : <Apps {...appsProps} />}
     </Flex>
   );
 };

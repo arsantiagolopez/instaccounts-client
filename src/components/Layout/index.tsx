@@ -1,5 +1,5 @@
 import { Flex } from "@chakra-ui/react";
-import React from "react";
+import React, { FC } from "react";
 import { StyleProps } from "../../types";
 import { Navigation } from "../Navigation";
 
@@ -8,7 +8,7 @@ interface Props {
   user?: object;
 }
 
-const Layout: React.FC<Props> = ({ children, user }) => {
+const Layout: FC<Props> = ({ children, user }) => {
   const navigationProps = { user };
   return (
     <Flex {...styles.wrapper}>

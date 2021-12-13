@@ -7,7 +7,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { AxiosResponse } from "axios";
-import React, { useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { IoAddSharp } from "react-icons/io5";
 import { KeyedMutator } from "swr";
 import axios from "../../axios";
@@ -20,7 +20,7 @@ interface Props {
   mutate: KeyedMutator<Instagram[]>;
 }
 
-const Stories: React.FC<Props> = ({ accounts, active, mutate }) => {
+const Stories: FC<Props> = ({ accounts, active, mutate }) => {
   const [activeId, setActiveId] = useState<string | null>(null);
 
   // Update selected account's lastActive field to newest date

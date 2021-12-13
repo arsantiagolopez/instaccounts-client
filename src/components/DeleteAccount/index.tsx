@@ -11,7 +11,14 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { AxiosResponse } from "axios";
-import React, { useEffect, useRef, useState } from "react";
+import React, {
+  Dispatch,
+  FC,
+  SetStateAction,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { KeyedMutator } from "swr";
 import axios from "../../axios";
 import { Instagram, StyleProps } from "../../types";
@@ -23,14 +30,14 @@ interface Props {
   /* Trigger component button to delete account */
   trigger: JSX.Element;
   /* Toggle delete alert state */
-  setIsDeleteAlertOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsDeleteAlertOpen?: Dispatch<SetStateAction<boolean>>;
   /* Accounts array to mutate on new delete */
   accounts?: Instagram[];
   /* Accounts mutate key to update cache */
   mutate: KeyedMutator<Instagram[]>;
 }
 
-const DeleteAccount: React.FC<Props> = ({
+const DeleteAccount: FC<Props> = ({
   username,
   trigger,
   setIsDeleteAlertOpen,

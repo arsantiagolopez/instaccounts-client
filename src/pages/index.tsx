@@ -1,5 +1,5 @@
 import fs from "fs";
-import { GetStaticProps, InferGetServerSidePropsType, NextPage } from "next";
+import { GetStaticProps, InferGetServerSidePropsType } from "next";
 import { useSession } from "next-auth/react";
 import Head from "next/head";
 import path from "path";
@@ -9,13 +9,13 @@ import { Dashboard } from "../components/Dashboard";
 import { Layout } from "../components/Layout";
 import { LoadingScreen } from "../components/Screens";
 import { Signin } from "../components/Signin";
-import { AccountsWithPosts } from "../types";
+import { AccountsWithPosts, ProtectedPage } from "../types";
 
 interface Props {
   accountsWithPosts: InferGetServerSidePropsType<typeof getStaticProps>;
 }
 
-const IndexPage: NextPage<Props> = ({ accountsWithPosts }) => {
+const IndexPage: ProtectedPage<Props> = ({ accountsWithPosts }) => {
   const { data, status } = useSession();
   const loading: boolean = status === "loading";
   const { user } = data || {};
@@ -151,5 +151,7 @@ export const getStaticProps: GetStaticProps = async () => {
     },
   };
 };
+
+IndexPage.isProtected = true;
 
 export default IndexPage;

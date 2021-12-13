@@ -1,10 +1,10 @@
 import { Flex, Skeleton, SkeletonCircle, SkeletonText } from "@chakra-ui/react";
-import React from "react";
+import React, { FC } from "react";
 import { StyleProps } from "../../types";
 
 interface Props {}
 
-const ProfileSkeleton: React.FC<Props> = () => (
+const ProfileSkeleton: FC<Props> = () => (
   <Flex {...styles.wrapper}>
     <Flex {...styles.profile}>
       <SkeletonCircle {...styles.avatar} />

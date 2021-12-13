@@ -1,6 +1,6 @@
 import { Flex, Icon } from "@chakra-ui/react";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 import {
   IoIosArrowDropleftCircle,
   IoIosArrowDroprightCircle,
@@ -12,7 +12,7 @@ interface Props {
   carouselImages?: string[];
 }
 
-const Carousel: React.FC<Props> = ({ image, carouselImages }) => {
+const Carousel: FC<Props> = ({ image, carouselImages }) => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
 
   const handleNext = (num: number): void => {

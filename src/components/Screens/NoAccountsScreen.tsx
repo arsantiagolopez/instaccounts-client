@@ -1,12 +1,12 @@
 import { Flex, Heading, Text } from "@chakra-ui/react";
-import React from "react";
+import React, { FC } from "react";
 import { StyleProps } from "../../types";
 import { useAccounts } from "../../utils/useAccounts";
 import { AddAccountDrawer } from "../AddAccountDrawer";
 
 interface Props {}
 
-const NoAccountsScreen: React.FC<Props> = () => {
+const NoAccountsScreen: FC<Props> = () => {
   const { accounts, mutate } = useAccounts();
   const addAccountDrawerProps = { accounts, mutate };
   return (

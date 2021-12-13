@@ -1,5 +1,5 @@
 import { Flex } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import useSWR from "swr";
 import { Instagram, Post as PostEntity, StyleProps } from "../../types";
 import { Post } from "../Post";
@@ -13,7 +13,7 @@ interface Props {
   previews: PostWithIsPreview[];
 }
 
-const Feed: React.FC<Props> = ({ active, previews }) => {
+const Feed: FC<Props> = ({ active, previews }) => {
   const [posts, setPosts] = useState<PostWithIsPreview[]>([]);
 
   const { username } = active || {};

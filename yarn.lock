@@ -2767,10 +2767,10 @@ inherits@2, inherits@2.0.4, inherits@^2.0.1, inherits@^2.0.3, inherits@^2.0.4, i
   resolved "https://registry.npmjs.org/inherits/-/inherits-2.0.4.tgz"
   integrity sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==
 
-instaccounts-instafeed@^0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/instaccounts-instafeed/-/instaccounts-instafeed-0.1.1.tgz#afe8400f17116bb47ee439e5efd56e0368a4d7f3"
-  integrity sha512-hS7t/aPtYCxwIET5x/yZz4EQC+/5lpvnqBteoMKmEArBIeZeQzSmlxtT81YZMCblL7hIiGbFWJZwRfEJ21A6Yw==
+instaccounts-instafeed@^0.1.5:
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/instaccounts-instafeed/-/instaccounts-instafeed-0.1.5.tgz#05106c9cc1c36cf3c98b374ba00afc4327f42597"
+  integrity sha512-FkvwMTFstz0hJq7BozMMspdm2HxE4jveDdi2eWfIeqFNVu/sCRRu08yfC5O6ANUlY1pHIhfdZ6vys8z0KJ8TMQ==
   dependencies:
     "@chakra-ui/react" "^1.7.3"
     "@emotion/react" "^11.7.0"

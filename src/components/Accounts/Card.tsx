@@ -10,7 +10,14 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { AxiosResponse } from "axios";
-import React, { useEffect, useRef, useState } from "react";
+import React, {
+  Dispatch,
+  FC,
+  SetStateAction,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { IoCheckmarkCircleSharp } from "react-icons/io5";
 import { MdCancel } from "react-icons/md";
 import { KeyedMutator } from "swr";
@@ -21,7 +28,7 @@ import { DeleteAccount } from "../DeleteAccount";
 interface Props {
   account: Instagram;
   activeId: string | null;
-  setActiveId: React.Dispatch<React.SetStateAction<string | null>>;
+  setActiveId: Dispatch<SetStateAction<string | null>>;
   accounts?: Instagram[];
   mutate: KeyedMutator<Instagram[]>;
 }
@@ -30,7 +37,7 @@ type HTMLElementEvent<T extends HTMLElement> = Event & {
   relatedTarget: T;
 };
 
-const Card: React.FC<Props> = ({
+const Card: FC<Props> = ({
   account,
   activeId,
   setActiveId,

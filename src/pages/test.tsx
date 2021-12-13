@@ -1,24 +1,30 @@
 import { Button, Flex } from "@chakra-ui/react";
 import { NextPage } from "next";
 import React from "react";
-import { handleMutation } from "../utils/handleMutation";
+import axios from "../axios";
 
 interface Props {}
 
 const TestPage: NextPage<Props> = () => {
   const handleClick = async () => {
-    let username = "asantilopez";
-    const { data, error } = await handleMutation("/instagrams/test", {
-      username,
-    });
+    const response = await axios.post(
+      `${process.env.NEXT_PUBLIC_API_URL}/apps`
+    );
 
-    if (error) {
-      console.log("*** error:", error);
-    }
+    console.log(response);
+    //   let username = "asantilopez";
+    //   const { data, error } = await handleMutation("/instagrams/test", {
+    //     username,
+    //   });
 
-    if (data) {
-      console.log("*** data:", data);
-    }
+    //   if (error) {
+    //     console.log("*** error:", error);
+    //   }
+
+    //   if (data) {
+    //     console.log("*** data:", data);
+    //   }
+    // };
   };
 
   return (

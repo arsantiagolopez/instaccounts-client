@@ -1,10 +1,10 @@
 import { Flex } from "@chakra-ui/react";
-import React from "react";
+import React, { FC } from "react";
 import { StyleProps } from "../../types";
 
 interface Props {}
 
-const AppStore: React.FC<Props> = () => {
+const AppStore: FC<Props> = () => {
   return <Flex {...styles.wrapper}>Check out these apps!</Flex>;
 };
 

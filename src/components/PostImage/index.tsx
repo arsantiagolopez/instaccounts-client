@@ -1,6 +1,6 @@
 import { AspectRatio, Skeleton } from "@chakra-ui/react";
 import Image from "next/image";
-import React from "react";
+import React, { FC } from "react";
 import { Post, StyleProps } from "../../types";
 import { Carousel } from "./Carousel";
 
@@ -14,7 +14,7 @@ interface CarouselProps {
   carouselImages?: string[];
 }
 
-const PostImage: React.FC<Props> = ({ post, ratio }) => {
+const PostImage: FC<Props> = ({ post, ratio }) => {
   const { image, isCarousel, carouselImages } = post;
 
   const carouselProps: CarouselProps = { image: image!, carouselImages };

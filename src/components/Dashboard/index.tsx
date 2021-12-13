@@ -1,5 +1,5 @@
 import { Flex } from "@chakra-ui/react";
-import React from "react";
+import React, { FC } from "react";
 import { AccountsWithPosts, StyleProps } from "../../types";
 import { useAccounts } from "../../utils/useAccounts";
 import { Feed } from "./Feed";
@@ -10,7 +10,7 @@ interface Props {
   accountsWithPosts: AccountsWithPosts;
 }
 
-const Dashboard: React.FC<Props> = ({ accountsWithPosts }) => {
+const Dashboard: FC<Props> = ({ accountsWithPosts }) => {
   const { accounts, active, mutate } = useAccounts();
 
   const storiesProps = { accounts, active, mutate };

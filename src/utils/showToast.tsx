@@ -5,7 +5,7 @@ import {
   Icon,
   ToastPositionWithLogical,
 } from "@chakra-ui/react";
-import React, { ReactNode } from "react";
+import React, { FC, ReactNode } from "react";
 import { IoCloseSharp } from "react-icons/io5";
 
 interface Props {
@@ -15,12 +15,7 @@ interface Props {
   duration?: number;
 }
 
-const showToast: React.FC<Props> = ({
-  status,
-  title,
-  position,
-  duration,
-}): any => {
+const showToast: FC<Props> = ({ status, title, position, duration }): any => {
   const toast = createStandaloneToast();
 
   const SuccessToast: ReactNode = (

@@ -1,6 +1,6 @@
 import { AddIcon, CloseIcon } from "@chakra-ui/icons";
 import { Flex, Icon, IconButton, Tooltip } from "@chakra-ui/react";
-import React, { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, FC, SetStateAction } from "react";
 import { HiOutlineDownload } from "react-icons/hi";
 import { VscDebugRestart } from "react-icons/vsc";
 import { Action, StyleProps } from "../../types";
@@ -10,10 +10,10 @@ interface Props {
   actions: Action[];
   setActions: Dispatch<SetStateAction<Action[]>>;
   images: string[];
-  setImages: React.Dispatch<React.SetStateAction<string[]>>;
+  setImages: Dispatch<SetStateAction<string[]>>;
 }
 
-const PreviewControl: React.FC<Props> = ({
+const PreviewControl: FC<Props> = ({
   actions,
   setActions,
   images,

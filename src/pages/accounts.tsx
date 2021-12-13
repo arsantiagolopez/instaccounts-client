@@ -1,13 +1,13 @@
-import { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import Head from "next/head";
 import React from "react";
 import { Accounts } from "../components/Accounts";
 import { Layout } from "../components/Layout";
+import { ProtectedPage } from "../types";
 
 interface Props {}
 
-const AccountsPage: NextPage<Props> = () => {
+const AccountsPage: ProtectedPage<Props> = () => {
   const { data } = useSession();
   const { user } = data || {};
 
@@ -25,5 +25,7 @@ const AccountsPage: NextPage<Props> = () => {
     </>
   );
 };
+
+AccountsPage.isProtected = true;
 
 export default AccountsPage;

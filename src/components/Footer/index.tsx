@@ -1,12 +1,12 @@
 import { Flex, Text } from "@chakra-ui/react";
 import moment from "moment";
 import Link from "next/link";
-import React from "react";
+import React, { FC } from "react";
 import { StyleProps } from "../../types";
 
 interface Props {}
 
-const Footer: React.FC<Props> = () => {
+const Footer: FC<Props> = () => {
   const links: any = [
     {
       name: "Github",
@@ -39,7 +39,7 @@ const Footer: React.FC<Props> = () => {
         ))}
       </Flex>
       <Text {...styles.link} {...styles.copyright}>
-        &#169; {year} Coded with ❤️ by Alexander Santiago
+        &#169; {year} Coded with ❤️ by Alex
       </Text>
     </Flex>
   );

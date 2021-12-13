@@ -1,18 +1,18 @@
 import { Flex } from "@chakra-ui/react";
-import React, { useEffect } from "react";
+import React, { Dispatch, FC, SetStateAction, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 
 interface Props {
   children: JSX.Element;
   images: string[];
-  setImages: React.Dispatch<React.SetStateAction<string[]>>;
+  setImages: Dispatch<SetStateAction<string[]>>;
 }
 
 interface FileWithPreview extends File {
   preview?: string;
 }
 
-const Dropzone: React.FC<Props> = ({ children, images, setImages }) => {
+const Dropzone: FC<Props> = ({ children, images, setImages }) => {
   const { acceptedFiles, fileRejections, getRootProps, getInputProps } =
     useDropzone({
       accept: "image/*",

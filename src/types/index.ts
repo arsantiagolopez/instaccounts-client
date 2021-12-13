@@ -1,4 +1,5 @@
-import { Account, Instagram, Post, Session, User } from "./entities";
+import { NextPage } from "next";
+import { Account, App, Instagram, Post, Session, User } from "./entities";
 
 export interface StyleProps {
   [key: string]: any;
@@ -14,6 +15,8 @@ interface PictureAndPosts {
   posts: Post[];
 }
 
-type AccountsWithPosts = Record<string, PictureAndPosts>;
+export type ProtectedPage<Props> = NextPage<Props> & { isProtected?: boolean };
 
-export type { User, Session, Instagram, Account, Post, AccountsWithPosts };
+export type AccountsWithPosts = Record<string, PictureAndPosts>;
+
+export type { User, Session, Instagram, Account, Post, App };

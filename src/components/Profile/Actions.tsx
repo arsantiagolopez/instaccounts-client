@@ -1,5 +1,5 @@
 import { Avatar, Flex, Text } from "@chakra-ui/react";
-import React, { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, FC, SetStateAction } from "react";
 import { Action, StyleProps } from "../../types";
 
 interface Props {
@@ -7,7 +7,7 @@ interface Props {
   setActions: Dispatch<SetStateAction<Action[]>>;
 }
 
-const Actions: React.FC<Props> = ({ actions, setActions }) => {
+const Actions: FC<Props> = ({ actions, setActions }) => {
   const PREVIEW_IMAGE =
     "https://images.unsplash.com/photo-1616628188502-413f2fe46e5e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=987&q=80";
 

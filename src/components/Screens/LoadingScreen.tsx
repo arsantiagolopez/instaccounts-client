@@ -1,5 +1,5 @@
 import { Flex, Spinner } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { StyleProps } from "../../types";
 import { useDimensions } from "../../utils/useDimensions";
 
@@ -7,7 +7,7 @@ interface Props {
   isFullScreen: boolean;
 }
 
-const LoadingScreen: React.FC<Props> = ({ isFullScreen }) => {
+const LoadingScreen: FC<Props> = ({ isFullScreen }) => {
   const [screenHeight, setScreenHeight] = useState<number | null>(null);
   const { height } = useDimensions();
   useEffect(() => setScreenHeight(height), [height]);

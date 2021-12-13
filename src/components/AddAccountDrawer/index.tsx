@@ -1,5 +1,5 @@
 import { Flex, Input, Text } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { useForm, UseFormRegisterReturn } from "react-hook-form";
 import { KeyedMutator } from "swr";
 import { Instagram, StyleProps } from "../../types";
@@ -18,7 +18,7 @@ interface FormData {
   password: string;
 }
 
-const AddAccountDrawer: React.FC<Props> = ({ children, accounts, mutate }) => {
+const AddAccountDrawer: FC<Props> = ({ children, accounts, mutate }) => {
   const [onSuccess, setOnSuccess] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 

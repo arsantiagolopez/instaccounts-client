@@ -1,13 +1,13 @@
 import { Button, Flex } from "@chakra-ui/react";
 import { AxiosResponse } from "axios";
-import React from "react";
+import React, { FC } from "react";
 import axios from "../../axios";
 import { StyleProps } from "../../types";
 import { useAccounts } from "../../utils/useAccounts";
 
 interface Props {}
 
-const Bot: React.FC<Props> = () => {
+const Bot: FC<Props> = () => {
   const { active } = useAccounts();
 
   const handleRun = async (): Promise<void> => {

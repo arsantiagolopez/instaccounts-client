@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { v4 } from "uuid";
 import { Post } from "../types";
 
 interface UseAccounts {
   previews: Partial<Post>[];
   images: string[];
-  setImages: React.Dispatch<React.SetStateAction<string[]>>;
+  setImages: Dispatch<SetStateAction<string[]>>;
 }
 
 const usePreviewPosts = (): UseAccounts => {

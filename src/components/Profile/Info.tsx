@@ -1,5 +1,5 @@
 import { Avatar, Flex, SkeletonCircle, Text } from "@chakra-ui/react";
-import React from "react";
+import React, { FC } from "react";
 import { Instagram, StyleProps } from "../../types";
 import { ProfileSkeleton } from "../Skeletons";
 
@@ -8,7 +8,7 @@ interface Props {
   instagramFiles: Record<string, string[]>;
 }
 
-const Info: React.FC<Props> = ({ active, instagramFiles }) => {
+const Info: FC<Props> = ({ active, instagramFiles }) => {
   const { image, username, name, bio, followers, following } = active || {};
 
   const posts = instagramFiles[username!]?.length;

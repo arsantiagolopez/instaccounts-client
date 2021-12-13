@@ -1,15 +1,12 @@
 import fs from "fs";
-import type {
-  GetStaticProps,
-  InferGetServerSidePropsType,
-  NextPage,
-} from "next";
+import type { GetStaticProps, InferGetServerSidePropsType } from "next";
 import { useSession } from "next-auth/react";
 import Head from "next/head";
 import path from "path";
 import React from "react";
 import { Layout } from "../components/Layout";
 import { Profile } from "../components/Profile";
+import { ProtectedPage } from "../types";
 import { useAccounts } from "../utils/useAccounts";
 
 interface Names {
@@ -22,7 +19,7 @@ interface Props {
   names?: Names[];
 }
 
-const ProfilePage: NextPage<Props> = ({ instagramFiles, names }) => {
+const ProfilePage: ProtectedPage<Props> = ({ instagramFiles, names }) => {
   const { data } = useSession();
   const { user } = data || {};
 
@@ -84,5 +81,7 @@ export const getStaticProps: GetStaticProps = async () => {
     },
   };
 };
+
+ProfilePage.isProtected = true;
 
 export default ProfilePage;
