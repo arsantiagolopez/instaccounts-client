@@ -48,24 +48,26 @@ const Feed: FC<Props> = ({ active, previews }) => {
 
   const ref = useRef<VirtuosoGridHandle>(null);
 
+  // 50vw list width, 3 posts per line, every post is 32.5%,
+  // Bottom margins: { base: 1.5%, md: 1% }
+  // For mobile, 50 * (0.325 + 0.0015) = 50 * 0.34 + 5vh (list end padding)
+  // For desktop, 50 * (0.32.5 + 0.001) = 50 * 0.335 + 5vh (list end padding)
+  const listHeight = `calc(${Math.ceil(
+    posts.length / 3
+  )} * (50vw * 0.34) + 5vh)`;
+
   return (
     <VirtuosoGrid
       ref={ref}
-      useWindowScroll
-      style={{ width: "100%" }}
+      style={{ width: "100%", minHeight: listHeight }}
       totalCount={posts.length}
-      overscan={9}
       components={{
         List: forwardRef(({ children }, ref) => (
           <Flex ref={ref} {...styles.list}>
             {children}
           </Flex>
         )),
-        Item: forwardRef(({ children }, ref) => (
-          <Flex ref={ref} {...styles.item}>
-            {children}
-          </Flex>
-        )),
+        Item: ({ children }) => <Flex {...styles.item}>{children}</Flex>,
       }}
       itemContent={(index) => posts[index] && <Post post={posts[index]} />}
     />
@@ -82,6 +84,7 @@ const styles: StyleProps = {
     justify: "space-between",
   },
   item: {
+    position: "relative",
     width: "100%",
     flex: { base: "1 1 32.5%", md: "1 1 32.5%" },
     maxWidth: { base: "32.5%", md: "32.5%" },

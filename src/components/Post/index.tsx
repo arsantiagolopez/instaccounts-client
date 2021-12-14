@@ -46,8 +46,6 @@ const Post: FC<Props> = ({ post }) => {
 
   const postModalProps = { post, isOpen, onClose };
 
-  console.log("post", post);
-
   return (
     <Flex
       ref={wrapperRef}
@@ -92,7 +90,6 @@ export { Post };
 
 const styles: StyleProps = {
   wrapper: {
-    position: "relative",
     width: "100%",
     cursor: "pointer",
   },
