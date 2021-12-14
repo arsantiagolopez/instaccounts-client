@@ -1,5 +1,6 @@
 import { Flex } from "@chakra-ui/react";
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, forwardRef, useEffect, useRef, useState } from "react";
+import { VirtuosoGrid, VirtuosoGridHandle } from "react-virtuoso";
 import useSWR from "swr";
 import { Instagram, Post as PostEntity, StyleProps } from "../../types";
 import { Post } from "../Post";
@@ -45,12 +46,29 @@ const Feed: FC<Props> = ({ active, previews }) => {
     if (data) setPosts(data);
   }, [data]);
 
+  const ref = useRef<VirtuosoGridHandle>(null);
+
   return (
-    <Flex {...styles.wrapper}>
-      {posts?.map((post: Partial<PostEntity>) => (
-        <Post key={post.id} post={post} />
-      ))}
-    </Flex>
+    <VirtuosoGrid
+      ref={ref}
+      useWindowScroll
+      style={{ width: "100%" }}
+      totalCount={posts.length}
+      overscan={9}
+      components={{
+        List: forwardRef(({ children }, ref) => (
+          <Flex ref={ref} {...styles.list}>
+            {children}
+          </Flex>
+        )),
+        Item: forwardRef(({ children }, ref) => (
+          <Flex ref={ref} {...styles.item}>
+            {children}
+          </Flex>
+        )),
+      }}
+      itemContent={(index) => posts[index] && <Post post={posts[index]} />}
+    />
   );
 };
 
@@ -59,10 +77,14 @@ export { Feed };
 // Styles
 
 const styles: StyleProps = {
-  wrapper: {
-    direction: "row",
-    justify: "space-between",
+  list: {
     wrap: "wrap",
-    maxWidth: "100%",
+    justify: "space-between",
+  },
+  item: {
+    width: "100%",
+    flex: { base: "1 1 32.5%", md: "1 1 32.5%" },
+    maxWidth: { base: "32.5%", md: "32.5%" },
+    marginBottom: { base: "1.5%", md: "1%" },
   },
 };

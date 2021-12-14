@@ -1,6 +1,7 @@
 import { Flex } from "@chakra-ui/react";
 import { getPosts } from "instaccounts-instafeed";
 import React, { FC, useContext, useEffect, useState } from "react";
+import { Virtuoso } from "react-virtuoso";
 import { AppContext } from "../../context/AppContext";
 import { AccountsWithPosts, StyleProps } from "../../types";
 
@@ -27,6 +28,8 @@ const Apps: FC<Props> = ({ accountsWithPosts }) => {
             newPosts = [...posts, ...instafeedPosts];
           }
           break;
+        default:
+          break;
       }
     });
 
@@ -39,11 +42,16 @@ const Apps: FC<Props> = ({ accountsWithPosts }) => {
     setPosts(newPosts);
   }, [apps]);
 
+  console.log(posts);
+
   return (
     <Flex {...styles.wrapper}>
-      {posts.map((post: JSX.Element) => (
-        <Flex key={post.props.children.key}>{post}</Flex>
-      ))}
+      <Virtuoso
+        useWindowScroll
+        data={posts}
+        style={{ width: "calc(50vw * 0.65)" }}
+        itemContent={(_, post) => post}
+      />
     </Flex>
   );
 };

@@ -71,9 +71,15 @@ const AddAccountDrawer: FC<Props> = ({ children, accounts, mutate }) => {
   const onSubmit = async (args: FormData): Promise<void> => {
     setIsLoading(true);
     const accountCreated = await createAccount(args);
-    if (!accountCreated) return;
+    if (!accountCreated) {
+      setIsLoading(false);
+      return;
+    }
     const accountAuthorized = await authorizeAccount(args);
-    if (!accountAuthorized) return;
+    if (!accountAuthorized) {
+      setIsLoading(false);
+      return;
+    }
     await downloadProfile(args);
     setIsLoading(false);
   };
