@@ -1,17 +1,44 @@
 import { Flex } from "@chakra-ui/react";
-import React, { FC } from "react";
-import { AccountsWithPosts, StyleProps } from "../../types";
+import React, { FC, useEffect, useState } from "react";
+import axios from "../../axios";
+import { AccountsWithPosts, Post, StyleProps } from "../../types";
 import { useAccounts } from "../../utils/useAccounts";
 import { Feed } from "./Feed";
 import { Insights } from "./Insights";
 import { Stories } from "./Stories";
 
-interface Props {
-  accountsWithPosts: AccountsWithPosts;
-}
+interface Props {}
 
-const Dashboard: FC<Props> = ({ accountsWithPosts }) => {
+const Dashboard: FC<Props> = () => {
+  const [accountsWithPosts, setAccountsWithPosts] = useState<AccountsWithPosts>(
+    {}
+  );
+
   const { accounts, active, mutate } = useAccounts();
+
+  // Get user's posts
+  const getUsersPosts = async (username: string, image?: string) => {
+    const { data: posts, status } = await axios.get<Post[]>(
+      `${process.env.NEXT_PUBLIC_API_URL}/posts/${username}`
+    );
+
+    if (status !== 200) {
+      return console.log("Could not fetch user's posts.");
+    }
+
+    const account = { [username]: { profilePic: image!, posts } };
+    setAccountsWithPosts({ ...accountsWithPosts, ...account });
+  };
+
+  // Get all accounts' posts
+  useEffect(() => {
+    if (accounts) {
+      for (const account of accounts) {
+        const { username, image } = account;
+        getUsersPosts(username, image);
+      }
+    }
+  }, [accounts]);
 
   const storiesProps = { accounts, active, mutate };
   const feedProps = { accounts, active, accountsWithPosts };

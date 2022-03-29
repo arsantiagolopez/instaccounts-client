@@ -23,10 +23,12 @@ const Carousel: FC<Props> = ({ image, carouselImages }) => {
   const isRightEnd =
     carouselImages && activeIndex >= carouselImages?.length - 1;
 
+  const imagePath = carouselImages ? carouselImages[activeIndex] : image;
+
   return (
     <Flex {...styles.wrapper}>
       <Image
-        src={carouselImages ? carouselImages[activeIndex] : image}
+        src={`${process.env.NEXT_PUBLIC_API_URL}${imagePath}`}
         layout="fill"
         objectFit="cover"
         quality={100}

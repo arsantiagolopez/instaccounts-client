@@ -89,7 +89,7 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
           }
         : undefined,
     // Debugging
-    debug: true,
+    debug: false,
     // Callbacks
     callbacks: {
       // Return userId on session

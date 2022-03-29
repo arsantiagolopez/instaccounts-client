@@ -1,5 +1,5 @@
 // Default entities with custom fields.
-// Next-auth only allowa for default entities
+// Next-auth only allows for default entities
 // Entity typings will include added fields/relations
 
 import { AccountEntity, SessionEntity, UserEntity } from "../entities";

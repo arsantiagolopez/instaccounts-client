@@ -7,7 +7,6 @@ import { SWRConfig } from "swr";
 import axios from "../axios";
 import { ProtectedRoute } from "../components/ProtectedRoute";
 import { AppProvider } from "../context/AppProvider";
-import "../styles/global.css";
 import theme from "../theme";
 
 interface IsProtectedProp {
@@ -30,15 +29,15 @@ const MyApp: NextPage<AppProps> = ({
       }}
     >
       <ChakraProvider theme={theme}>
-        {Component.isProtected ? (
-          <ProtectedRoute>
-            <AppProvider>
+        <AppProvider>
+          {Component.isProtected ? (
+            <ProtectedRoute>
               <Component {...pageProps} />
-            </AppProvider>
-          </ProtectedRoute>
-        ) : (
-          <Component {...pageProps} />
-        )}
+            </ProtectedRoute>
+          ) : (
+            <Component {...pageProps} />
+          )}
+        </AppProvider>
       </ChakraProvider>
     </SWRConfig>
   </SessionProvider>

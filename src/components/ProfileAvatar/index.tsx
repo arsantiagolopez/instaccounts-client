@@ -40,7 +40,7 @@ const ProfileAvatar: FC<Props> = () => {
       >
         {image || typeof image === "undefined" ? (
           <Avatar
-            src={image}
+            src={`${process.env.NEXT_PUBLIC_API_URL}/${image}`}
             boxShadow={(isProfile || isOpen) && "0 0 0 1px black"}
             border={(isProfile || isOpen) && "2px solid white"}
             {...styles.avatar}

@@ -58,7 +58,7 @@ const Post: FC<Props> = ({ post }) => {
         <>
           <Skeleton {...styles.skeleton} />
           <Image
-            src={image!}
+            src={image ? `${process.env.NEXT_PUBLIC_API_URL}${image}` : ""}
             alt={id}
             layout="fill"
             objectFit="cover"

@@ -37,5 +37,5 @@ yarn-error.log*
 # Typescript
 *.tsbuildinfo
 
-# Downloaded accounts data
-/public/accounts
+# Docker
+Dockerfile

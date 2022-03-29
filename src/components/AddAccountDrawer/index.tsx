@@ -75,11 +75,13 @@ const AddAccountDrawer: FC<Props> = ({ children, accounts, mutate }) => {
       setIsLoading(false);
       return;
     }
+
     const accountAuthorized = await authorizeAccount(args);
     if (!accountAuthorized) {
       setIsLoading(false);
       return;
     }
+
     await downloadProfile(args);
     setIsLoading(false);
   };

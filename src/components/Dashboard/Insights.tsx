@@ -24,7 +24,10 @@ const Insights: FC<Props> = ({ active }) => {
     <Flex {...styles.wrapper}>
       <Flex {...styles.profile}>
         {image ? (
-          <Avatar src={image} {...styles.avatar} />
+          <Avatar
+            src={`${process.env.NEXT_PUBLIC_API_URL}/${image}`}
+            {...styles.avatar}
+          />
         ) : (
           <SkeletonCircle {...styles.avatar} />
         )}

@@ -27,7 +27,7 @@ const PostImage: FC<Props> = ({ post, ratio }) => {
           <Carousel {...carouselProps} />
         ) : (
           <Image
-            src={image!}
+            src={image ? `${process.env.NEXT_PUBLIC_API_URL}${image}` : ""}
             layout="fill"
             objectFit="cover"
             quality={100}

@@ -1,7 +1,6 @@
 import { Divider, Flex } from "@chakra-ui/react";
 import React, { FC, useState } from "react";
-import { Action, StyleProps } from "../../types";
-import { useAccounts } from "../../utils/useAccounts";
+import { Action, Instagram, StyleProps } from "../../types";
 import { usePreviewPosts } from "../../utils/usePreviewPosts";
 import { PreviewControl } from "../PreviewControl";
 import { Actions } from "./Actions";
@@ -9,25 +8,26 @@ import { Feed } from "./Feed";
 import { Info } from "./Info";
 
 interface Props {
-  instagramFiles: Record<string, string[]>;
+  account?: Instagram;
 }
 
-const Profile: FC<Props> = ({ instagramFiles }) => {
+const Profile: FC<Props> = ({ account }) => {
   const [actions, setActions] = useState<Action[]>([
     { name: "DEFAULT", active: true },
     { name: "PREVIEW", active: false },
   ]);
-  const { active } = useAccounts();
+
   const { name: activeAction } = actions.find(({ active }) => active) || {};
 
   const { previews, images, setImages } = usePreviewPosts();
 
   const isPreviewControlActive = activeAction === "PREVIEW";
 
-  const infoProps = { active, instagramFiles };
+  const infoProps = { account };
   const actionsProps = { actions, setActions };
-  const feedProps = { active, previews };
+  const feedProps = { account, previews };
   const previewControlProps = { actions, setActions, images, setImages };
+
   return (
     <Flex {...styles.wrapper}>
       <Info {...infoProps} />

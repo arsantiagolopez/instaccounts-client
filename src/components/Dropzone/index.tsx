@@ -28,11 +28,6 @@ const Dropzone: FC<Props> = ({ children, images, setImages }) => {
       file["preview"] = URL.createObjectURL(file);
 
       setImages([...images, file.preview]);
-
-      // Revoke the data uris to avoid memory leaks
-      return () => {
-        if (file) URL.revokeObjectURL(file.preview!);
-      };
     }
   }, [acceptedFiles]);
 

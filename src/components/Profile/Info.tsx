@@ -1,20 +1,22 @@
 import { Avatar, Flex, SkeletonCircle, Text } from "@chakra-ui/react";
 import React, { FC } from "react";
-import { Instagram, StyleProps } from "../../types";
+import useSWR from "swr";
+import { Instagram, Post, StyleProps } from "../../types";
 import { ProfileSkeleton } from "../Skeletons";
 
 interface Props {
-  active?: Instagram;
-  instagramFiles: Record<string, string[]>;
+  account?: Instagram;
 }
 
-const Info: FC<Props> = ({ active, instagramFiles }) => {
-  const { image, username, name, bio, followers, following } = active || {};
+const Info: FC<Props> = ({ account }) => {
+  const { image, username, name, bio, followers, following } = account || {};
 
-  const posts = instagramFiles[username!]?.length;
+  const { data: posts } = useSWR<Post[]>(
+    `${process.env.NEXT_PUBLIC_API_URL}/posts/${username}`
+  );
 
   // Show loading skeleton
-  if (!active) {
+  if (!account) {
     return <ProfileSkeleton />;
   }
 
@@ -22,7 +24,10 @@ const Info: FC<Props> = ({ active, instagramFiles }) => {
     <Flex {...styles.wrapper}>
       <Flex {...styles.profile}>
         {image || typeof image === "undefined" ? (
-          <Avatar src={image} {...styles.avatar} />
+          <Avatar
+            src={`${process.env.NEXT_PUBLIC_API_URL}/${image}`}
+            {...styles.avatar}
+          />
         ) : (
           <SkeletonCircle {...styles.avatar} />
         )}
@@ -30,7 +35,7 @@ const Info: FC<Props> = ({ active, instagramFiles }) => {
           <Text {...styles.username}>{username}</Text>
           <Flex {...styles.insights}>
             <Text {...styles.text} marginRight="1.5vw">
-              <b>{posts}</b> posts
+              <b>{posts?.length}</b> posts
             </Text>
             <Text {...styles.text} marginRight="1.5vw">
               <b>{followers}</b> followers

@@ -10,14 +10,14 @@ interface PostWithIsPreview extends Partial<PostEntity> {
 }
 
 interface Props {
-  active?: Instagram;
+  account?: Instagram;
   previews: PostWithIsPreview[];
 }
 
-const Feed: FC<Props> = ({ active, previews }) => {
+const Feed: FC<Props> = ({ account, previews }) => {
   const [posts, setPosts] = useState<PostWithIsPreview[]>([]);
 
-  const { username } = active || {};
+  const { username } = account || {};
 
   const { data } = useSWR(
     username && `${process.env.NEXT_PUBLIC_API_URL}/posts/${username}`

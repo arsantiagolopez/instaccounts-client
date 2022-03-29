@@ -107,11 +107,15 @@ const Card: FC<Props> = ({
       onClick={() => handleSelect(id)}
       onMouseEnter={handleHover}
       onMouseOut={handleBlur}
+      as="div"
       {...styles.button}
     >
       <AspectRatio {...styles.aspect}>
         {image ? (
-          <Avatar src={image} {...styles.image} />
+          <Avatar
+            src={`${process.env.NEXT_PUBLIC_API_URL}/${image}`}
+            {...styles.image}
+          />
         ) : (
           <SkeletonCircle {...styles.image} />
         )}
