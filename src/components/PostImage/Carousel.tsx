@@ -28,7 +28,8 @@ const Carousel: FC<Props> = ({ image, carouselImages }) => {
   return (
     <Flex {...styles.wrapper}>
       <Image
-        src={`${process.env.NEXT_PUBLIC_API_URL}${imagePath}`}
+        // src={`${process.env.NEXT_PUBLIC_API_URL}${imagePath}`}
+        src={imagePath}
         layout="fill"
         objectFit="cover"
         quality={100}

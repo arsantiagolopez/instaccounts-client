@@ -15,7 +15,6 @@
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
     "@next-auth/typeorm-legacy-adapter": "^0.1.2-next.20",
-    "argon2": "^0.28.2",
     "axios": "^0.24.0",
     "focus-visible": "^5.2.0",
     "framer-motion": "^4",

@@ -24,21 +24,21 @@ const Feed: FC<Props> = ({ accounts, active, accountsWithPosts }) => {
         let { profilePic, posts } = accountsWithPosts[account] || {};
 
         // Update profile picture
-        profilePic = `${process.env.NEXT_PUBLIC_API_URL}/${accountsWithPosts[account].profilePic}`;
+        // profilePic = `${process.env.NEXT_PUBLIC_API_URL}/${accountsWithPosts[account].profilePic}`;
+        // profilePic = accountsWithPosts[account].profilePic;
 
-        // Update images & potential carousels
-        posts = posts.map((post) => {
-          let { image, isCarousel, carouselImages } = post;
-          image = process.env.NEXT_PUBLIC_API_URL + image;
+        // // Update images & potential carousels
+        // posts = posts.map((post) => {
+        //   let { image, isCarousel, carouselImages } = post;
 
-          if (isCarousel) {
-            carouselImages = carouselImages?.map(
-              (image) => process.env.NEXT_PUBLIC_API_URL + image
-            );
-          }
+        //   if (isCarousel) {
+        //     carouselImages = carouselImages?.map(
+        //       (image) => process.env.NEXT_PUBLIC_API_URL + image
+        //     );
+        //   }
 
-          return { ...post, image, carouselImages };
-        });
+        //   return { ...post, image, carouselImages };
+        // });
 
         // Return updated account
         accounts[account] = { profilePic, posts };

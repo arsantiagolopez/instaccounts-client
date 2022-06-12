@@ -25,7 +25,8 @@ const Info: FC<Props> = ({ account }) => {
       <Flex {...styles.profile}>
         {image || typeof image === "undefined" ? (
           <Avatar
-            src={`${process.env.NEXT_PUBLIC_API_URL}/${image}`}
+            // src={`${process.env.NEXT_PUBLIC_API_URL}/${image}`}
+            src={image}
             {...styles.avatar}
           />
         ) : (

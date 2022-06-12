@@ -23,16 +23,19 @@ const PostImage: FC<Props> = ({ post, ratio }) => {
     <AspectRatio ratio={ratio ?? 1} {...styles.aspect}>
       <>
         <Skeleton {...styles.skeleton} />
-        {isCarousel ? (
+        {image && isCarousel ? (
           <Carousel {...carouselProps} />
         ) : (
-          <Image
-            src={image ? `${process.env.NEXT_PUBLIC_API_URL}${image}` : ""}
-            layout="fill"
-            objectFit="cover"
-            quality={100}
-            priority={true}
-          />
+          image && (
+            <Image
+              // src={image ? `${process.env.NEXT_PUBLIC_API_URL}${image}` : ""}
+              src={image}
+              layout="fill"
+              objectFit="cover"
+              quality={100}
+              priority={true}
+            />
+          )
         )}
       </>
     </AspectRatio>

@@ -86,7 +86,7 @@ const styles: StyleProps = {
   },
   submit: {
     position: "absolute",
-    bottom: { base: "-8vh", md: "-8vh" },
+    bottom: { base: "-8vh", md: "-10vh" },
     variant: "unstyled",
     marginTop: "2vh",
     background: "white",

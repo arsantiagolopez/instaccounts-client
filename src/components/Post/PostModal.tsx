@@ -59,7 +59,8 @@ const PostModal: FC<Props> = ({ post, isOpen, onClose }) => {
 
           <Flex {...styles.profileBar} {...styles.mobileOnly}>
             <Avatar
-              src={`${process.env.NEXT_PUBLIC_API_URL}/${active?.image}`}
+              // src={`${process.env.NEXT_PUBLIC_API_URL}/${active?.image}`}
+              src={active?.image}
               {...styles.avatar}
             />
             <Flex {...styles.info}>
@@ -75,7 +76,8 @@ const PostModal: FC<Props> = ({ post, isOpen, onClose }) => {
           <Flex {...styles.meta}>
             <Flex {...styles.profileBar} {...styles.desktopOnly}>
               <Avatar
-                src={`${process.env.NEXT_PUBLIC_API_URL}/${active?.image}`}
+                // src={`${process.env.NEXT_PUBLIC_API_URL}/${active?.image}`}
+                src={active?.image}
                 {...styles.avatar}
               />
               <Flex {...styles.info}>
@@ -87,7 +89,8 @@ const PostModal: FC<Props> = ({ post, isOpen, onClose }) => {
             <Flex {...styles.comments}>
               <Flex {...styles.caption}>
                 <Avatar
-                  src={`${process.env.NEXT_PUBLIC_API_URL}/${active?.image}`}
+                  // src={`${process.env.NEXT_PUBLIC_API_URL}/${active?.image}`}
+                  src={active?.image}
                   {...styles.captionAvatar}
                   {...styles.desktopOnly}
                 />

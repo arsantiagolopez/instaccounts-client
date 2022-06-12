@@ -38,9 +38,10 @@ const ProfileAvatar: FC<Props> = () => {
         onBlur={handleBlur}
         tabIndex={1}
       >
-        {image || typeof image === "undefined" ? (
+        {image && typeof image !== "undefined" && typeof image !== null ? (
           <Avatar
-            src={`${process.env.NEXT_PUBLIC_API_URL}/${image}`}
+            // src={`${process.env.NEXT_PUBLIC_API_URL}/${image}`}
+            src={image}
             boxShadow={(isProfile || isOpen) && "0 0 0 1px black"}
             border={(isProfile || isOpen) && "2px solid white"}
             {...styles.avatar}

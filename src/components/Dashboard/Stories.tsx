@@ -58,7 +58,8 @@ const Stories: FC<Props> = ({ accounts, active, mutate }) => {
           >
             {image ? (
               <Avatar
-                src={`${process.env.NEXT_PUBLIC_API_URL}/${image}`}
+                // src={`${process.env.NEXT_PUBLIC_API_URL}/${image}`}
+                src={image}
                 boxShadow={
                   activeId === id
                     ? "0 0 0 2px black"

@@ -113,7 +113,8 @@ const Card: FC<Props> = ({
       <AspectRatio {...styles.aspect}>
         {image ? (
           <Avatar
-            src={`${process.env.NEXT_PUBLIC_API_URL}/${image}`}
+            // src={`${process.env.NEXT_PUBLIC_API_URL}/${image}`}
+            src={image}
             {...styles.image}
           />
         ) : (
@@ -123,13 +124,13 @@ const Card: FC<Props> = ({
       <Flex {...styles.account}>
         <Flex {...styles.info}>
           <Text {...styles.username}>{username}</Text>
-          <Text {...styles.meta}>
+          <Flex {...styles.meta}>
             <Circle
               background={isAuthorized ? "green.400" : "red.400"}
               {...styles.circle}
             />
             {isAuthorized ? activity : status}
-          </Text>
+          </Flex>
         </Flex>
         <Flex>
           {activeId === id && isHovered && (

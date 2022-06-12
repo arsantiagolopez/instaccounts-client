@@ -57,14 +57,17 @@ const Post: FC<Props> = ({ post }) => {
       <AspectRatio {...styles.aspect}>
         <>
           <Skeleton {...styles.skeleton} />
-          <Image
-            src={image ? `${process.env.NEXT_PUBLIC_API_URL}${image}` : ""}
-            alt={id}
-            layout="fill"
-            objectFit="cover"
-            quality={100}
-            priority={true}
-          />
+          {image && (
+            <Image
+              // src={image ? `${process.env.NEXT_PUBLIC_API_URL}${image}` : ""}
+              src={image}
+              alt={id}
+              layout="fill"
+              objectFit="cover"
+              quality={100}
+              priority={true}
+            />
+          )}
         </>
       </AspectRatio>
       <Flex opacity={hovered ? "1" : "0"} {...styles.meta}>
